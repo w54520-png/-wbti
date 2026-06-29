@@ -85,3 +85,34 @@ test('matchType: 16 个常规人格代号都能匹配到（覆盖所有维度组
     assert.equal(matchType(scores, null), expected, `dim=${dim} 应匹配 ${expected}`);
   }
 });
+
+// Step 7: 18 人格端到端覆盖（16 常规 + DRUNK + HHHH）
+test('matchType: 18 人格端到端覆盖（16 常规 + DRUNK + HHHH）', () => {
+  const cases = [
+    // 16 常规
+    { code: 'MALT',  scores: {H:8,L:0,S:8,T:0,F:8,M:0,C:8,N:0}, drunk: null },
+    { code: 'CASK',  scores: {H:8,L:0,S:8,T:0,F:0,M:8,C:8,N:0}, drunk: null },
+    { code: 'BOOZE', scores: {H:8,L:0,S:0,T:8,F:8,M:0,C:8,N:0}, drunk: null },
+    { code: 'FIRE',  scores: {H:8,L:0,S:0,T:8,F:0,M:8,C:8,N:0}, drunk: null },
+    { code: 'NEAT',  scores: {H:8,L:0,S:8,T:0,F:8,M:0,C:0,N:8}, drunk: null },
+    { code: 'SMOK',  scores: {H:8,L:0,S:8,T:0,F:0,M:8,C:0,N:8}, drunk: null },
+    { code: 'TOAS',  scores: {H:8,L:0,S:0,T:8,F:8,M:0,C:0,N:8}, drunk: null },
+    { code: 'HYPE',  scores: {H:8,L:0,S:0,T:8,F:0,M:8,C:0,N:8}, drunk: null },
+    { code: 'PEAC',  scores: {H:0,L:8,S:8,T:0,F:8,M:0,C:8,N:0}, drunk: null },
+    { code: 'JULE',  scores: {H:0,L:8,S:8,T:0,F:0,M:8,C:8,N:0}, drunk: null },
+    { code: 'COOL',  scores: {H:0,L:8,S:8,T:0,F:8,M:0,C:0,N:8}, drunk: null },
+    { code: 'ZEN',   scores: {H:0,L:8,S:8,T:0,F:0,M:8,C:0,N:8}, drunk: null },
+    { code: 'PUNC',  scores: {H:0,L:8,S:0,T:8,F:8,M:0,C:8,N:0}, drunk: null },
+    { code: 'TIPS',  scores: {H:0,L:8,S:0,T:8,F:8,M:0,C:0,N:8}, drunk: null },
+    { code: 'CHIC',  scores: {H:0,L:8,S:0,T:8,F:0,M:8,C:8,N:0}, drunk: null },
+    { code: 'DRAM',  scores: {H:0,L:8,S:0,T:8,F:0,M:8,C:0,N:8}, drunk: null },
+    // DRUNK 触发：H 高分 + 饮酒分支 A
+    { code: 'DRUNK', scores: {H:8,L:0,S:0,T:0,F:0,M:0,C:0,N:0}, drunk: 'A' },
+    // HHHH 触发：4 维所有极得分都 < 5
+    { code: 'HHHH',  scores: {H:0,L:0,S:0,T:0,F:0,M:0,C:0,N:0}, drunk: null }
+  ];
+
+  for (const c of cases) {
+    assert.equal(matchType(c.scores, c.drunk), c.code, `期望 ${c.code}`);
+  }
+});
