@@ -15,6 +15,19 @@ python3 -m http.server 8000
 # 浏览器打开 http://localhost:8000
 ```
 
+## 部署到 Vercel
+
+v0.1 MVP 是纯静态 HTML（hash 路由 SPA），部署只要 1 个 GitHub 仓库 + Vercel 网页点几下。
+
+完整步骤见 [DEPLOY.md](./DEPLOY.md)。
+
+简要：
+1. 注册 Vercel（https://vercel.com/signup），用 GitHub 登录
+2. 推送到 GitHub：`git remote add origin https://github.com/你的用户名/wbti.git && git push -u origin main`
+3. Vercel 网页 Import Project → Framework 选 Other → Deploy
+
+> **关于此部署**：Claude 完成了 `vercel.json` 配置 + `DEPLOY.md` 文档，但 Vercel 账号登录、GitHub 仓库绑定、网页点击 Import Project 等步骤需要你手动操作。
+
 ## 目录结构
 
 ```
