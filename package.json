@@ -4,7 +4,7 @@
   "description": "WBTI 酒人格测试 - 你的酒人格是什么？",
   "type": "module",
   "scripts": {
-    "test": "node --test tests/"
+    "test": "node --test tests/*.test.js"
   },
   "private": true
 }
