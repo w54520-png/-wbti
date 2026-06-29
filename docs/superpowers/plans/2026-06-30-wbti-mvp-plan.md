@@ -604,6 +604,14 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { scoreAnswer, scoreAllAnswers } from '../js/core/scoring.js';
 
+// 测试用的 mock questions（按 display order，pole 与 data/questions.json 一致）
+const mockQuestions = [
+  ...Array.from({length: 8}, (_, i) => ({ id: `q${i+1}`, dimension: 'strength', pole: 'H', text: '' })),
+  ...Array.from({length: 8}, (_, i) => ({ id: `q${i+9}`, dimension: 'scene', pole: 'S', text: '' })),
+  ...Array.from({length: 8}, (_, i) => ({ id: `q${i+17}`, dimension: 'flavor', pole: 'F', text: '' })),
+  ...Array.from({length: 8}, (_, i) => ({ id: `q${i+25}`, dimension: 'rhythm', pole: 'C', text: '' }))
+];
+
 test('scoreAnswer: A 选项 = -1', () => {
   assert.equal(scoreAnswer('A'), -1);
 });
@@ -625,39 +633,39 @@ test('scoreAnswer: 非法选项抛错', () => {
 - [ ] **Step 2: 写测试 - 维度得分聚合**
 
 ```javascript
-test('scoreAllAnswers: 全部选 C → 4 维度各 +8', () => {
+test('scoreAllAnswers: 全部选 C → H/S/F/C 各 +8（mock 题库）', () => {
   const answers = Array(32).fill('C');
-  const scores = scoreAllAnswers(answers);
+  const scores = scoreAllAnswers(answers, mockQuestions);
   assert.equal(scores.H, 8);
   assert.equal(scores.L, 0);  // L 是反方向
-  assert.equal(scores.S, 0);
-  assert.equal(scores.T, 8);
+  assert.equal(scores.S, 8);
+  assert.equal(scores.T, 0);
   assert.equal(scores.F, 8);
   assert.equal(scores.M, 0);
-  assert.equal(scores.C, 0);
-  assert.equal(scores.N, 8);
+  assert.equal(scores.C, 8);
+  assert.equal(scores.N, 0);
 });
 
-test('scoreAllAnswers: 全部选 A → 4 维度各 -8', () => {
+test('scoreAllAnswers: 全部选 A → H/S/F/C 各 -8', () => {
   const answers = Array(32).fill('A');
-  const scores = scoreAllAnswers(answers);
+  const scores = scoreAllAnswers(answers, mockQuestions);
   assert.equal(scores.H, -8);
-  assert.equal(scores.T, -8);
+  assert.equal(scores.S, -8);
   assert.equal(scores.F, -8);
-  assert.equal(scores.N, -8);
+  assert.equal(scores.C, -8);
 });
 
 test('scoreAllAnswers: 全部选 B → 全 0', () => {
   const answers = Array(32).fill('B');
-  const scores = scoreAllAnswers(answers);
+  const scores = scoreAllAnswers(answers, mockQuestions);
   for (const k of Object.keys(scores)) {
     assert.equal(scores[k], 0, `${k} 应为 0`);
   }
 });
 
 test('scoreAllAnswers: 32 道题不全 → 抛错', () => {
-  assert.throws(() => scoreAllAnswers(['A']), /32 answers/i);
-  assert.throws(() => scoreAllAnswers(Array(33).fill('A')), /32 answers/i);
+  assert.throws(() => scoreAllAnswers(['A'], mockQuestions), /32 answers/i);
+  assert.throws(() => scoreAllAnswers(Array(33).fill('A'), mockQuestions), /32 answers/i);
 });
 ```
 
@@ -665,14 +673,14 @@ test('scoreAllAnswers: 32 道题不全 → 抛错', () => {
 
 ```javascript
 test('scoreAllAnswers: H 维度独立统计（用于分支触发判断）', () => {
-  // q1-q8 都选 C（强重口味）
+  // q1-q8 都选 C（强重口味），其他选 B
   const answers = [
-    'C', 'C', 'C', 'C', 'C', 'C', 'C', 'C',  // q1-q8 H/L
-    'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B',  // q9-q16 S/T
-    'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B',  // q17-q24 F/M
-    'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B'   // q25-q32 C/N
+    'C', 'C', 'C', 'C', 'C', 'C', 'C', 'C',  // 8 道 H 极题
+    'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B',
+    'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B',
+    'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B'
   ];
-  const scores = scoreAllAnswers(answers);
+  const scores = scoreAllAnswers(answers, mockQuestions);
   assert.equal(scores.H, 8);
   assert.equal(scores.L, 0);
 });
@@ -707,33 +715,26 @@ export function scoreAnswer(answer) {
 
 /**
  * 32 道题聚合到 8 个极的得分
- * 维度排布（来自 data/questions.json 实际数据）：
- * - 顺序与 pole 字段映射每题的极
- * @param {string[]} answers - 32 个 'A'/'B'/'C'
+ * @param {string[]} answers - 32 个 'A'/'B'/'C'，按 display order
+ * @param {Object[]} questions - 32 道题对象，按 display order，每题有 pole 字段
  * @returns {Object} - {H, L, S, T, F, M, C, N} 各为 -8..+8 的整数
  */
-export function scoreAllAnswers(answers) {
+export function scoreAllAnswers(answers, questions) {
   if (answers.length !== 32) {
     throw new Error(`expected 32 answers, got ${answers.length}`);
   }
+  if (!questions || questions.length !== 32) {
+    throw new Error(`expected 32 questions, got ${questions ? questions.length : 0}`);
+  }
 
-  // 读取 question 数据以确定每题的 pole
-  // 注：这里用同步 fetch 在 Node 测试里会失败，所以改为读 JSON
-  // 实际生产用 ES modules import JSON
   const scores = { H: 0, L: 0, S: 0, T: 0, F: 0, M: 0, C: 0, N: 0 };
-
-  // 使用内嵌的题库映射（与 data/questions.json 一致）
-  // 顺序与题目的 pole 字段对齐：q1-q32
-  const POLES = [
-    'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H',   // q1-q8 strength
-    'S', 'S', 'S', 'S', 'S', 'S', 'S', 'S',   // q9-q16 scene
-    'F', 'F', 'F', 'F', 'F', 'F', 'F', 'F',   // q17-q24 flavor
-    'C', 'C', 'C', 'C', 'C', 'C', 'C', 'C'    // q25-q32 rhythm
-  ];
 
   for (let i = 0; i < 32; i++) {
     const score = scoreAnswer(answers[i]);
-    const pole = POLES[i];
+    const pole = questions[i].pole;
+    if (!scores.hasOwnProperty(pole)) {
+      throw new Error(`invalid pole: ${pole} in question ${questions[i].id}`);
+    }
     scores[pole] += score;
   }
 
@@ -784,20 +785,8 @@ import assert from 'node:assert/strict';
 import { matchType } from '../js/core/matcher.js';
 
 test('matchType: 极端重·独·果·古 → MALT', () => {
-  // 全部 C：H=8, S=0, F=8, C=0
-  // 但 S/T 平手时按字母表：S > T 胜
-  // C/N 平手时按字母表：C > N 胜
   const scores = { H: 8, L: 0, S: 8, T: 0, F: 8, M: 0, C: 8, N: 0 };
-  // 等等：S/T 在这里 S=8 T=0，那 S 胜。但实际全 C 时是 S=0 T=8（因为 S 维度题选 C 计 T 极 +1）
-  // 让我们改成更明确的：H 极最大化、其他维度也明确
-  // 实际题库映射：q9-q16 是 S 极题，选 C 加 S 分，选 A 减 S 分（变成 T）
-  // 等等，我们的 scoreAllAnswers 里：score = -1/0/+1，pole 字段写的是题目倾向的极
-  // q9 是 S 极题：选 C 计 +1 给 S，选 A 计 -1 给 S
-  // 所以全 C 时：S 维度 +8，T 不动
-  // 全 A 时：S 维度 -8，T 不动
-  // OK 那 matchType 测试如下：
-  const allC = { H: 8, L: 0, S: 8, T: 0, F: 8, M: 0, C: 8, N: 0 };
-  assert.equal(matchType(allC, null), 'MALT');  // HSFC
+  assert.equal(matchType(scores, null), 'MALT');
 });
 ```
 
@@ -1028,6 +1017,21 @@ git commit -m "feat: 人格匹配逻辑（含 TDD，含 DRUNK + HHHH 触发）"
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
   <title>WBTI 酒人格测试</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#8B4513',
+            accent: '#D4A574',
+            bg: '#FAF7F2',
+            text: '#2B2B2B',
+            hidden: '#7C2D12'
+          }
+        }
+      }
+    };
+  </script>
   <link rel="stylesheet" href="css/styles.css">
 </head>
 <body class="bg-bg text-text font-sans antialiased">
@@ -1636,7 +1640,7 @@ function renderCurrentQuestion(app) {
       state.currentIdx++;
       // 检查是否需要进入饮酒分支
       if (state.currentIdx === 32) {
-        const scores = scoreAllAnswers(state.answers);
+        const scores = scoreAllAnswers(state.answers, state.questions);
         if (isHighStrength(scores)) {
           state.phase = 'branch';
         } else {
@@ -1646,7 +1650,7 @@ function renderCurrentQuestion(app) {
       renderCurrentQuestion(app);
     } else {
       // 最后一题，下一步看分支
-      const scores = scoreAllAnswers(state.answers);
+      const scores = scoreAllAnswers(state.answers, state.questions);
       if (isHighStrength(scores)) {
         state.phase = 'branch';
       } else {
@@ -1701,7 +1705,7 @@ git commit -m "feat: 测试页（单题推进 + 进度条 + 饮酒分支）"
 ```javascript
 // js/pages/result.js
 // 渲染人格结果详情
-import { getTypeByCode } from '../core/data-loader.js';
+import { getTypeByCode, getQuestionsByDisplayOrder } from '../core/data-loader.js';
 import { scoreAllAnswers } from '../core/scoring.js';
 import { matchType } from '../core/matcher.js';
 
@@ -1721,7 +1725,8 @@ export async function renderResult(app, match) {
       return;
     }
     const { answers, branchAnswer } = JSON.parse(raw);
-    const scores = scoreAllAnswers(answers);
+    const questions = await getQuestionsByDisplayOrder();
+    const scores = scoreAllAnswers(answers, questions);
     typeCode = matchType(scores, branchAnswer);
     // 跳转到具体人格详情
     window.location.hash = `#/result/${typeCode}`;
@@ -1742,7 +1747,8 @@ export async function renderResult(app, match) {
     const raw = sessionStorage.getItem('wbti_answers');
     if (raw) {
       const { answers } = JSON.parse(raw);
-      const scores = scoreAllAnswers(answers);
+      const questions = await getQuestionsByDisplayOrder();
+      const scores = scoreAllAnswers(answers, questions);
       const dimNames = {
         H: '浓度·重', L: '浓度·轻',
         S: '场景·独', T: '场景·群',
