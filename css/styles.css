@@ -1,0 +1,50 @@
+:root {
+  --color-primary: #8B4513;
+  --color-accent: #D4A574;
+  --color-bg: #FAF7F2;
+  --color-text: #2B2B2B;
+  --color-hidden: #7C2D12;
+}
+
+body {
+  background: var(--color-bg);
+  color: var(--color-text);
+}
+
+.bg-bg { background-color: var(--color-bg); }
+.text-text { color: var(--color-text); }
+.text-primary { color: var(--color-primary); }
+.bg-primary { background-color: var(--color-primary); }
+.text-accent { color: var(--color-accent); }
+.bg-accent { background-color: var(--color-accent); }
+.text-hidden { color: var(--color-hidden); }
+.bg-hidden { background-color: var(--color-hidden); }
+.border-accent { border-color: var(--color-accent); }
+
+/* 大代号样式 */
+.type-code {
+  font-size: 4rem;
+  font-weight: 900;
+  letter-spacing: -0.05em;
+  color: var(--color-primary);
+  line-height: 1;
+}
+
+/* 隐藏人格代号 */
+.type-code.hidden-type {
+  color: var(--color-hidden);
+}
+
+/* 进度条动画 */
+.progress-bar {
+  transition: width 0.3s ease-out;
+}
+
+/* 淡入动画 */
+.fade-in {
+  animation: fadeIn 0.3s ease-in;
+}
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <title>WBTI 酒人格测试</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#8B4513',
+            accent: '#D4A574',
+            bg: '#FAF7F2',
+            text: '#2B2B2B',
+            hidden: '#7C2D12'
+          }
+        }
+      }
+    };
+  </script>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body class="bg-bg text-text font-sans antialiased">
+
+  <!-- 顶部导航 -->
+  <nav class="border-b border-amber-100 bg-white/80 backdrop-blur sticky top-0 z-10">
+    <div class="max-w-2xl mx-auto px-4 py-3 flex items-center justify-between">
+      <a href="#/" class="font-bold text-primary text-lg">WBTI</a>
+      <div class="flex gap-4 text-sm text-gray-600">
+        <a href="#/types" class="hover:text-primary">16 型</a>
+        <a href="#/about" class="hover:text-primary">关于</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- 页面容器 -->
+  <main id="app" class="max-w-2xl mx-auto px-4 py-8 min-h-[calc(100vh-60px)]">
+    <!-- 路由会渲染到这里 -->
+    <div class="text-center text-gray-400 py-20">加载中...</div>
+  </main>
+
+  <!-- 底部友情提示 -->
+  <footer class="border-t border-amber-100 mt-12">
+    <div class="max-w-2xl mx-auto px-4 py-4 text-xs text-gray-400 text-center">
+      WBTI 是娱乐向测试，结果仅供自娱自乐。<br>
+      未成年人请勿饮酒。
+    </div>
+  </footer>
+
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>
