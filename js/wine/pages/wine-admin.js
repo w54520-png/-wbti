@@ -1,13 +1,23 @@
 // js/wine/pages/wine-admin.js
 // 红酒版 Admin 审阅页：列出 32 道题、4 维 8 极、18 型、隐藏触发
+//
+// 8 极的"性格化包装"（用户看到的题面 = 性格/生活方式；底层 = 红酒维度）
+//   T 单宁强 = 偏重口 / 喜欢挑战 / 冲击感
+//   S 单宁弱 = 偏清淡 / 简约 / 轻盈
+//   A 酸度高 = 反应快 / 敏锐 / 挑
+//   C 酸度低 = 接受度高 / 慢热 / 钝感
+//   F 酒体满 = 内容厚重 / 深入 / 信息多
+//   L 酒体轻 = 简明扼要 / 轻量 / 点到为止
+//   R 回味长 = 念旧 / 慢 / 反复回味
+//   Q 回味短 = 翻篇快 / 干脆 / 一次性
 
 import { getQuestionsByDisplayOrder, getAllTypes } from '../core/data-loader.js';
 
 const DIM_PAIRS = [
-  { a: 'T', b: 'S', name: '单宁', desc: { T: '强（咬舌、涩）', S: '弱（顺滑、果味）' } },
-  { a: 'A', b: 'C', name: '酸度', desc: { A: '高（流口水）', C: '低（圆润）' } },
-  { a: 'F', b: 'L', name: '酒体', desc: { F: '满（厚重）', L: '轻（清流）' } },
-  { a: 'R', b: 'Q', name: '回味', desc: { R: '长（绵长）', Q: '短（干脆）' } }
+  { a: 'T', b: 'S', name: '浓度', desc: { T: '重（重口/冲击）', S: '轻（清淡/简约）' } },
+  { a: 'A', b: 'C', name: '敏锐', desc: { A: '挑（反应快/敏锐）', C: '钝（接受度高/慢热）' } },
+  { a: 'F', b: 'L', name: '信息量', desc: { F: '满（厚重/深入）', L: '轻（简明/点到为止）' } },
+  { a: 'R', b: 'Q', name: '节奏', desc: { R: '慢（念旧/反复回味）', Q: '快（翻篇/干脆）' } }
 ];
 
 const HIDDEN_CODES = ['BLEN', 'VINT'];
@@ -31,6 +41,32 @@ export async function renderAdmin(app) {
         <p class="text-xs text-gray-500 mt-2">访问路径：<code class="bg-white px-1 rounded">/wine.html#/wine-admin</code></p>
       </div>
 
+      <!-- 0. 题面包装说明 -->
+      <section class="mb-8 bg-amber-50 border border-amber-200 rounded-xl p-6">
+        <h2 class="text-lg font-bold mb-3 text-primary">🎭 题面包装说明</h2>
+        <p class="text-sm text-gray-700 mb-3">
+          32 道题<strong>不出现"红酒/单宁/酸度/酒体/回味"等字眼</strong>，全部用生活化性格场景包装（餐厅/电影/朋友/做决定/学习……）。用户做完揭晓人格时才有"原来测的是酒"的惊喜。
+        </p>
+        <table class="w-full text-sm">
+          <thead class="text-xs text-gray-500">
+            <tr>
+              <th class="text-left p-2">极</th>
+              <th class="text-left p-2">底层 = 红酒</th>
+              <th class="text-left p-2">表层 = 性格化包装</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${DIM_PAIRS.map(p => `
+              <tr class="border-t border-amber-200">
+                <td class="p-2 font-mono font-bold text-primary">${p.a} / ${p.b}</td>
+                <td class="p-2">${p.name}</td>
+                <td class="p-2"><code>${p.a}</code> = ${p.desc[p.a]} ／ <code>${p.b}</code> = ${p.desc[p.b]}</td>
+              </tr>
+            `).join('')}
+          </tbody>
+        </table>
+      </section>
+
       <!-- 1. 计分规则 -->
       <section class="mb-8 bg-white rounded-xl p-6 shadow-md">
         <h2 class="text-lg font-bold mb-3">📐 计分规则</h2>
@@ -40,16 +76,8 @@ export async function renderAdmin(app) {
           <div class="bg-amber-50 p-3 rounded text-center"><span class="font-bold text-primary">C</span> = +1（认同）</div>
         </div>
         <div class="mt-3 text-sm text-gray-600">
-          每题得分加给该题对应的「极」。例：q1 pole=T，选 C 则 <code>T+1</code>；选 A 则 <code>T-1</code>。
-          每维度 8 题，最终 8 个极各得 -8..+8。
-        </div>
-        <div class="mt-3 text-sm">
-          <strong>4 维度 8 极：</strong>
-          ${DIM_PAIRS.map(p => `
-            <span class="inline-block bg-gray-100 px-2 py-1 rounded mr-2 mt-1">
-              ${p.name}: <code>${p.a}=${p.desc[p.a]}</code> vs <code>${p.b}=${p.desc[p.b]}</code>
-            </span>
-          `).join('')}
+          每题得分加给该题归属的「极」。例：q1 pole=T，选 C 则 <code>T+1</code>；选 A 则 <code>T-1</code>。
+          每极 4 题，最终 8 个极各得 -4..+4。每维度 2 极的得分差 = 用户在该维度的"倾向强度"。
         </div>
       </section>
 
@@ -72,6 +100,7 @@ export async function renderAdmin(app) {
       <!-- 3. 32 道题详细列表 -->
       <section class="mb-8 bg-white rounded-xl p-6 shadow-md">
         <h2 class="text-lg font-bold mb-3">📝 32 道题详细（按 display order）</h2>
+        <p class="text-xs text-gray-500 mb-3">注意：题面文字完全不出现酒类词，<code>pole</code> 字段标记该题归属哪个极。</p>
         <div class="space-y-2">
           ${questions.map(q => `
             <div class="border border-gray-200 rounded-lg overflow-hidden">
@@ -112,14 +141,14 @@ export async function renderAdmin(app) {
         </div>
       </section>
 
-      <!-- 5. 维度组合热力图（按单宁·酸度） -->
+      <!-- 5. 维度组合热力图（按浓度×敏锐） -->
       <section class="mb-8 bg-white rounded-xl p-6 shadow-md">
-        <h2 class="text-lg font-bold mb-3">🗺️ 16 常规人格 · 按单宁×酸度分组</h2>
+        <h2 class="text-lg font-bold mb-3">🗺️ 16 常规人格 · 按浓度×敏锐分组</h2>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
           ${['TA', 'TC', 'SA', 'SC'].map(group => {
             const groupName = {
-              TA: '强·高（咬舌·流口水）', TC: '强·低（咬舌·圆润）',
-              SA: '弱·高（顺滑·流口水）', SC: '弱·低（顺滑·圆润）'
+              TA: '重·挑（重口 + 敏锐）',     TC: '重·钝（重口 + 慢热）',
+              SA: '轻·挑（清淡 + 敏锐）',     SC: '轻·钝（清淡 + 慢热）'
             }[group];
             const icon = { TA: '⚔️', TC: '🛡️', SA: '🌿', SC: '🍬' }[group];
             const items = types.filter(t => t.dimensions.startsWith(group));
@@ -140,7 +169,7 @@ export async function renderAdmin(app) {
         </div>
       </section>
 
-      <!-- 6. 隐藏人格触发条件 -->
+      <!-- 6. 隐藏人格触发条件（与代码一致） -->
       <section class="mb-8 bg-red-50 border border-red-200 rounded-xl p-6">
         <h2 class="text-lg font-bold text-hidden mb-3">🎁 隐藏人格触发条件</h2>
         <div class="space-y-3">
@@ -153,7 +182,10 @@ export async function renderAdmin(app) {
                 </div>
               </div>
               <p class="text-sm text-gray-700 mt-2">
-                ${t.code === 'VINT' ? '4 维最高极都 ≥ 5 <strong>且</strong> 维度间最高极极差 ≥ 2（你很较真）' : '4 维最高极都 < 5 <strong>且</strong> 维度间最高极极差 < 4（你什么酒都能搭）'}
+                ${t.code === 'VINT'
+                  ? '4 维每维<strong>主极 ≥ 3</strong> 且<strong>反向极 ≥ -2</strong>（用户对 4 维都赞同、不强烈反对。典型：全选 C）'
+                  : '4 维每维<strong>最高分 ≤ 0</strong>（用户对所有正向极都不偏好。典型：全选 B）'
+                }
               </p>
               <a href="#/result/${t.code}" class="text-xs text-primary hover:underline">→ 查看 ${t.code} 详情</a>
             </div>
@@ -167,7 +199,7 @@ export async function renderAdmin(app) {
           <h2 class="text-lg font-bold">📖 18 篇 writeup 审阅（点击展开）</h2>
           <div class="flex gap-2">
             <button id="expand-all" class="text-xs px-3 py-1 bg-amber-100 hover:bg-amber-200 rounded">全部展开</button>
-            <button id="collapse-all" class="text-xs px-3 py-1 bg-gray-100 hover:bg-gray-200 rounded">全部收起</button>
+            <button id="collapse-all" class="text-xs px-3 py-1 bg-gray-100 hover:bg-gray-100 rounded">全部收起</button>
           </div>
         </div>
         <div class="space-y-2 text-sm">
