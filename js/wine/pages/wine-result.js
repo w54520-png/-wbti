@@ -10,10 +10,10 @@ import { matchType, resolveTypeByDimensions, HIDDEN_CODES } from '../core/matche
 
 const DIM_PAIRS = [['T', 'S'], ['A', 'C'], ['F', 'L'], ['R', 'Q']];
 const DIM_NAMES = {
-  T: '单宁·强', S: '单宁·弱',
-  A: '酸度·高', C: '酸度·低',
-  F: '酒体·满', L: '酒体·轻',
-  R: '回味·长', Q: '回味·短'
+  T: '浓度·重', S: '浓度·轻',
+  A: '敏锐·挑', C: '敏锐·钝',
+  F: '信息·满', L: '信息·轻',
+  R: '节奏·慢', Q: '节奏·快'
 };
 
 export async function renderResult(app, match) {
@@ -104,7 +104,7 @@ export async function renderResult(app, match) {
       ` : ''}
 
       <div class="bg-amber-50 border border-amber-200 rounded-lg p-4 text-sm text-gray-700 mb-6">
-        <strong>⚠️ 友情提示：</strong>WBTI·Red 是娱乐向测试，结果仅供自娱自乐。未成年人请勿饮酒。
+        <strong>⚠️ 友情提示：</strong>本测试是娱乐向，结果仅供自娱自乐。未成年人请勿饮酒。
       </div>
 
       <div class="flex gap-3 justify-center">
@@ -155,7 +155,7 @@ async function renderDimensionBars() {
 }
 
 function handleShare(shareBtn, type) {
-  const shareText = `我测出 WBTI·Red 是【${type.code} ${type.name}】——${type.tagline}\n你也来测一下：https://w54520-png.github.io/-wbti/wine.html`;
+  const shareText = `我测出一种性格：【${type.code} ${type.name}】——${type.tagline}\n你也来测一下：https://w54520-png.github.io/-wbti/wine.html`;
   const original = shareBtn.textContent;
   if (!navigator.clipboard || !navigator.clipboard.writeText) {
     alert('当前浏览器不支持自动复制，请手动复制：\n\n' + shareText);

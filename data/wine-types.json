@@ -1,23 +1,23 @@
 {
-  "version": "1.0",
+  "version": "1.1",
   "types": [
     {
-      "code": "CABA",
+      "code": "BOLD",
       "dimensions": "TAFR",
-      "name": "卡爸",
+      "name": "硬派",
       "subtitle": "沉稳大佬派",
       "tagline": "咬舌、挂杯、有回响。坐下来就压住整桌。",
-      "writeup": "你一开口就稳。点酒从不看甜度，只看产区年份。配菜要有挑战性，酒不能抢戏但不能没戏。喜欢被尊重、被记住、被请客。别人说你稳重，你说这只是『不想解释』。",
+      "writeup": "你一开口就稳。点东西从不看甜度，只看年份。配菜要有挑战性，酒不能抢戏但不能没戏。喜欢被尊重、被记住、被请客。别人说你稳重，你说这只是『不想解释』。",
       "wines": [
         { "name": "Penfolds Bin 389 奔富 389", "price": "¥350-500", "region": "南澳", "tagline": "澳洲混酿的『小 Grange』，稳定有面" },
         { "name": "Château Lynch-Bages 靓茨伯庄园", "price": "¥800+", "region": "波尔多·碧玑侯爵", "tagline": "波尔多五级庄里的实力派" }
       ]
     },
     {
-      "code": "SYRA",
+      "code": "HARD",
       "dimensions": "TAFQ",
-      "name": "西啦",
-      "subtitle": "烈性青年派",
+      "name": "烈性",
+      "subtitle": "烈性子派",
       "tagline": "一口下去，辣、涩、冲、爽。",
       "writeup": "你喝红酒不是为微醺，是为痛快。要浓、要烈、要来得快走得快。讨厌『这酒有层次』式的装，欣赏『我干了』。爱烧烤、爱深夜、爱雪茄味。爱烈不爱长。",
       "wines": [
@@ -26,9 +26,9 @@
       ]
     },
     {
-      "code": "PIRA",
+      "code": "DEEP",
       "dimensions": "TALR",
-      "name": "皮啦",
+      "name": "闷骚",
       "subtitle": "精修内涵派",
       "tagline": "锋利但不凶，温柔里有主张。",
       "writeup": "你喝红酒讲究『对的酒给对的人』。能品出黑樱桃、覆盆子、香料的层次。会为了配菜换酒款，会为了一瓶酒开一桌饭。讨厌豪饮派，但自己也喝得稳。",
@@ -38,9 +38,9 @@
       ]
     },
     {
-      "code": "GARN",
+      "code": "SLAB",
       "dimensions": "TALQ",
-      "name": "嘎呢",
+      "name": "板爷",
       "subtitle": "直爽干练派",
       "tagline": "不绕弯，不矫情。一口见底。",
       "writeup": "你喝酒不为品，为喝。要果味、要爽、要痛快。喜欢西班牙、澳洲南部那种『直给的果』。朋友里第一个倒酒，最后一个放下杯子。爱社交、爱说话、爱赢。",
@@ -50,9 +50,9 @@
       ]
     },
     {
-      "code": "MALA",
+      "code": "WARM",
       "dimensions": "TCFR",
-      "name": "麻辣",
+      "name": "暖叔",
       "subtitle": "重口大叔派",
       "tagline": "一上来就挂满舌头，盘子都得让位。",
       "writeup": "你是饭局上的核心人物。酒要厚重、肉要炖得烂、话要说得响。Malbec 那种『黑巧+咖啡+烟』的调调像你。讨厌寡淡，喜欢『这酒今晚有故事』。",
@@ -62,9 +62,9 @@
       ]
     },
     {
-      "code": "NEBB",
+      "code": "OLDE",
       "dimensions": "TCFQ",
-      "name": "内八",
+      "name": "老炮",
       "subtitle": "古典绅士派",
       "tagline": "要酸要涩要复杂，但别想一次喝明白。",
       "writeup": "你喝红酒像看一部老电影。Barolo 那种『焦油+玫瑰+皮革』的调调像你——初见不一定爱，但会越看越上头。喜欢博物馆、老建筑、爵士。爱收藏、爱读小众书、爱装低调。",
@@ -74,10 +74,10 @@
       ]
     },
     {
-      "code": "TEMA",
+      "code": "DUKE",
       "dimensions": "TCLR",
-      "name": "特嘛",
-      "subtitle": "丹宁王子派",
+      "name": "爵爷",
+      "subtitle": "单宁王子派",
       "tagline": "咬舌、挂齿、像一次漫长的拥抱。",
       "writeup": "你很挑，但挑得有道理。Tempranillo 那种『皮革+烟草+红李』像你——直接、慢热、有厚度。爱威士忌、爱皮鞋、爱老歌。爱一本正经开玩笑，爱有故事的酒。",
       "wines": [
@@ -86,9 +86,9 @@
       ]
     },
     {
-      "code": "MERA",
+      "code": "MILD",
       "dimensions": "TCLQ",
-      "name": "没拉",
+      "name": "温和",
       "subtitle": "温柔大众派",
       "tagline": "圆润顺滑，讨人喜欢，不抢风头。",
       "writeup": "你不喜欢极端，要的是『大家都舒服』。Merlot 那种『李子+巧克力+柔顺』像你——进到哪都不出错。爱聚餐、爱聊天、爱被人依靠。讨厌有攻击性，欣赏『软实力』。",
@@ -98,9 +98,9 @@
       ]
     },
     {
-      "code": "CHDA",
+      "code": "SILK",
       "dimensions": "SAFR",
-      "name": "迟大",
+      "name": "丝滑",
       "subtitle": "奶油大哥派",
       "tagline": "像奶盖，像坚果，像开了暖气的屋子。",
       "writeup": "你喜欢『满口都是』的酒。要橡木、要奶香、要有点重量感的。Chardonnay 像你——平时低调，关键时刻有东西。爱白肉、爱黄油、爱冬天的羊毛衫。",
@@ -110,9 +110,9 @@
       ]
     },
     {
-      "code": "SAUB",
+      "code": "MINT",
       "dimensions": "SAFQ",
-      "name": "骚爆",
+      "name": "薄荷",
       "subtitle": "草本青年派",
       "tagline": "清新、跳脱、一下就抓住你。",
       "writeup": "你爱『刚刚醒来』的感觉。要青草、柑橘、火山石——Sauv Blanc 像你。吃饭前先来杯白的，开胃、爱冷饮、爱周末早晨。讨厌沉重，欣赏『轻装上阵』。",
@@ -122,9 +122,9 @@
       ]
     },
     {
-      "code": "RIEA",
+      "code": "DEW",
       "dimensions": "SALR",
-      "name": "蕊啊",
+      "name": "露珠",
       "subtitle": "甜渣党·内涵派",
       "tagline": "酸度极高但甜而不腻，余味里有花果香。",
       "writeup": "你爱『能放十年的甜』。Riesling 从干型到甜型都能 hold 住，像你——表面好说话，骨子里有坚持。爱甜品、爱蜂蜜、爱古典乐。爱一个下午只做一件事。",
@@ -134,9 +134,9 @@
       ]
     },
     {
-      "code": "GEWA",
+      "code": "SPICE",
       "dimensions": "SALQ",
-      "name": "哥挖",
+      "name": "香料",
       "subtitle": "异域风味派",
       "tagline": "荔枝、玫瑰、香料，闭上眼像在东南亚。",
       "writeup": "你爱尝鲜，爱猎奇。Gewürztraminer 那种『荔枝+玫瑰+八角』的奇特像你——别人皱眉你上头。爱咖喱、爱摩洛哥菜、爱奇怪香料。讨厌平凡，欣赏『一闻就知道不一般』。",
@@ -146,9 +146,9 @@
       ]
     },
     {
-      "code": "MOSA",
+      "code": "PEACH",
       "dimensions": "SCFR",
-      "name": "摸撒",
+      "name": "蜜桃",
       "subtitle": "甜心派",
       "tagline": "甜、桃味、气泡。少女心必备。",
       "writeup": "你喝酒不为醉，为开心。Moscato 那种『蜜桃+花香+微气泡』像你——轻盈、甜美、不装。爱派对、爱甜品、爱拍照。讨厌涩酒，欣赏『第一口就笑』。",
@@ -158,9 +158,9 @@
       ]
     },
     {
-      "code": "PIGR",
+      "code": "CALM",
       "dimensions": "SCFQ",
-      "name": "皮哥",
+      "name": "闲云",
       "subtitle": "轻松日常派",
       "tagline": "不抢戏、不出错、清清爽爽。",
       "writeup": "你喝酒不挑场合、不挑人。Pinot Grigio 那种『青柠+白桃+矿物质』像你——不浓不淡，刚刚好。爱简餐、爱散步、爱平平淡淡。讨厌『装』，欣赏『舒服就好』。",
@@ -170,9 +170,9 @@
       ]
     },
     {
-      "code": "ZINA",
+      "code": "JAM",
       "dimensions": "SCLR",
-      "name": "紫娜",
+      "name": "果酱",
       "subtitle": "果酱炸弹派",
       "tagline": "蓝莓、蜜饯、黑糖，甜但稳得住。",
       "writeup": "你喝酒要有『故事感』。Zinfandel 那种『蜜饯+黑莓+焦糖』像你——表面张扬，底下有酒精度撑着。爱 BBQ、爱美式复古、爱红丝绒蛋糕。讨厌寡淡，欣赏『一喝就上头』。",
@@ -182,9 +182,9 @@
       ]
     },
     {
-      "code": "CHEA",
+      "code": "FREE",
       "dimensions": "SCLQ",
-      "name": "吃啊",
+      "name": "撒野",
       "subtitle": "随意洒脱派",
       "tagline": "酸度温和，入口顺，喝完没负担。",
       "writeup": "你爱『不挑场合的酒』。Chenin Blanc 那种『蜂蜜+洋甘菊+青苹果』像你——能配各种菜。爱自助、爱聚餐、爱说走就走。讨厌『这酒必须配这个』，欣赏『怎么喝都行』。",
@@ -196,25 +196,25 @@
   ],
   "hidden": [
     {
-      "code": "VINT",
-      "name": "老饕",
+      "code": "SAGE",
+      "name": "酒仙",
       "subtitle": "隐·极端型",
-      "tagline": "4 维度都极端。你是 wine snob 的本尊。",
-      "writeup": "你喝红酒的认真程度，已经超出『娱乐』的范畴。每一个维度都有主见，产区要查，年份要选，温度要控。但你也会为了一瓶 1982 年的拉菲笑一晚上。",
+      "tagline": "你对 4 维都赞同，不强烈反对。传说中的 wine snob。",
+      "writeup": "你答题认真程度已经超出『娱乐』的范畴。每一个维度都有主见。但你也会为了一瓶 1982 年的拉菲笑一晚上。",
       "wines": [
         { "name": "Château Lafite Rothschild 拉菲古堡", "price": "¥5000+", "region": "波尔多·Pauillac", "tagline": "波尔多一级庄，国人心中酒神" },
         { "name": "Screaming Eagle 啸鹰", "price": "¥20000+", "region": "加州·Napa", "tagline": "加州膜拜酒之王，产量极少" }
       ]
     },
     {
-      "code": "BLEN",
-      "name": "调酒师",
+      "code": "MIX",
+      "name": "百搭",
       "subtitle": "隐·均衡型",
-      "tagline": "4 维度都中庸。但你什么酒都能搭。",
+      "tagline": "你对所有正向极都不偏好。什么酒都能搭。",
       "writeup": "你是饭局里的『调酒师』。不是没主见，是懂得配合。什么酒都给面，什么场合都能 hold 住。但偶尔也被人问：『你到底喜欢什么？』你笑笑。",
       "wines": [
         { "name": "Banfi Chianti Classico 班菲基安蒂", "price": "¥150-200", "region": "托斯卡纳", "tagline": "意大利国民基安蒂，万能搭配" },
-        { "name": "Beaujolais Nouveau 宝祖利新酒", "price": "¥150+", "region": "博若莱", "tagline": "法国『当年酒』，每年 11 月第三个星期四全球开喝" }
+        { "name": "Beaujolais Nouveau 宝祖利新酒", "price": "¥150+", "region": "博若莱", "tagline": "法国『当年酒』，每年 11 月全球开喝" }
       ]
     }
   ]
