@@ -179,16 +179,37 @@ export async function renderAdmin(app) {
         </div>
       </section>
 
-      <!-- 7. 人格 writeup 状态 -->
+      <!-- 7. 人格 writeup 状态（点击展开完整内容） -->
       <section class="mb-8 bg-white rounded-xl p-6 shadow-md">
-        <h2 class="text-lg font-bold mb-3">📖 18 篇 writeup 完成状态</h2>
+        <div class="flex items-center justify-between mb-3">
+          <h2 class="text-lg font-bold">📖 18 篇 writeup 审阅（点击展开）</h2>
+          <div class="flex gap-2">
+            <button id="expand-all" class="text-xs px-3 py-1 bg-amber-100 hover:bg-amber-200 rounded">全部展开</button>
+            <button id="collapse-all" class="text-xs px-3 py-1 bg-gray-100 hover:bg-gray-200 rounded">全部收起</button>
+          </div>
+        </div>
         <div class="space-y-2 text-sm">
-          ${allTypes.map(t => `
-            <div class="flex items-center justify-between border-b border-gray-100 py-2">
-              <span>${t.emoji} <span class="font-mono font-bold">${t.code}</span> ${t.name}</span>
-              <span class="text-xs ${t.writeup.includes('v0.2') || t.writeup.length < 300 ? 'text-red-500' : 'text-green-600'}">
-                ${t.writeup.includes('v0.2') || t.writeup.length < 300 ? '⏳ 占位' : '✓ 已写'} (${t.writeup.length} 字)
-              </span>
+          ${allTypes.map((t, idx) => `
+            <div class="writeup-row border border-gray-200 rounded-lg overflow-hidden" data-idx="${idx}">
+              <button class="writeup-toggle w-full flex items-center justify-between bg-gray-50 hover:bg-amber-50 px-3 py-3 text-left">
+                <span class="flex items-center gap-2">
+                  <span class="text-xl">${t.emoji}</span>
+                  <span class="font-mono font-bold text-primary">${t.code}</span>
+                  <span>${t.name}</span>
+                  <span class="text-xs font-mono text-gray-400">${t.dimensions || ''}</span>
+                  ${t.trigger ? '<span class="text-xs px-1.5 py-0.5 bg-red-100 text-red-600 rounded">隐藏</span>' : ''}
+                </span>
+                <span class="text-xs text-gray-500">
+                  <span class="char-count">${t.writeup.length} 字</span>
+                  <span class="toggle-icon ml-2">▼</span>
+                </span>
+              </button>
+              <div class="writeup-body hidden bg-white px-4 py-3 border-t border-gray-100">
+                <p class="text-sm italic text-gray-600 mb-3">"${t.tagline}"</p>
+                <div class="text-sm text-gray-700 leading-relaxed whitespace-pre-line">${t.writeup}</div>
+                ${t.dimensions ? `<p class="text-xs font-mono text-gray-400 mt-3 pt-3 border-t border-gray-100">维度: ${t.dimensions} (${t.dimensionNames})</p>` : ''}
+                <a href="#/result/${t.code}" class="inline-block mt-3 text-xs text-primary hover:underline">→ 查看 ${t.code} 完整结果页</a>
+              </div>
             </div>
           `).join('')}
         </div>
@@ -199,4 +220,26 @@ export async function renderAdmin(app) {
       </div>
     </div>
   `;
+
+  // 绑定 writeup 行展开/收起
+  document.querySelectorAll('.writeup-toggle').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const row = btn.closest('.writeup-row');
+      const body = row.querySelector('.writeup-body');
+      const icon = row.querySelector('.toggle-icon');
+      const isHidden = body.classList.contains('hidden');
+      body.classList.toggle('hidden');
+      icon.textContent = isHidden ? '▲' : '▼';
+    });
+  });
+
+  // 全部展开/收起
+  document.getElementById('expand-all').addEventListener('click', () => {
+    document.querySelectorAll('.writeup-body').forEach(b => b.classList.remove('hidden'));
+    document.querySelectorAll('.toggle-icon').forEach(i => i.textContent = '▲');
+  });
+  document.getElementById('collapse-all').addEventListener('click', () => {
+    document.querySelectorAll('.writeup-body').forEach(b => b.classList.add('hidden'));
+    document.querySelectorAll('.toggle-icon').forEach(i => i.textContent = '▼');
+  });
 }
