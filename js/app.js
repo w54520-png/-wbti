@@ -20,10 +20,12 @@ const routes = [
 
 async function handleRoute() {
   const hash = window.location.hash.slice(1) || '/';
+  // 忽略 hash 后的 query string（例如 /test?v=2 用于硬刷绕过缓存）
+  const cleanHash = hash.split('?')[0];
   const app = document.getElementById('app');
 
   for (const route of routes) {
-    const match = hash.match(route.pattern);
+    const match = cleanHash.match(route.pattern);
     if (match) {
       app.innerHTML = '<div class="text-center text-gray-400 py-20">加载中...</div>';
       try {
