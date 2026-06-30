@@ -48,3 +48,33 @@ body {
   from { opacity: 0; transform: translateY(10px); }
   to { opacity: 1; transform: translateY(0); }
 }
+
+/* ========== 测试页：选项点击 & 题卡切换动画 ========== */
+
+/* 选项按钮：基础过渡 */
+.answer-btn {
+  transition: all 0.2s ease;
+}
+
+/* 选中态：边框 + 浅色背景 + 轻微放大 */
+.answer-btn.selected {
+  border-color: var(--color-primary) !important;
+  background-color: #FEF3C7 !important; /* amber-50 */
+  transform: scale(1.02);
+  box-shadow: 0 4px 12px rgba(139, 69, 19, 0.12);
+}
+
+/* 锁定态：未选中的按钮变淡（点击后冻结整组，防止双击） */
+.answer-btn.locked:not(.selected) {
+  opacity: 0.45;
+}
+
+/* 题卡：淡入淡出过渡（不动用动画，避免位移叠加） */
+.question-card {
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+.question-card.fading-out {
+  opacity: 0;
+  transform: translateY(-6px);
+  pointer-events: none;
+}

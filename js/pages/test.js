@@ -1,12 +1,14 @@
 // js/pages/test.js
 // 单题推进 + 进度条 + 上一题/下一题 + 饮酒分支
 // 交互策略：
-//   - 选项点击 → 选 → 350ms 后自动跳下一题（丝滑）
-//   - 上一题/下一题按钮仍保留，用于在题目间跳转（不要求已选）
+//   - 选项点击 → 选中（CSS 类切换，不重渲染）→ 350ms 后题卡淡出 → 切下一题
+//   - 上一题/下一题按钮：题卡淡出 → 切题（fade-in）
+//   - 全程不重渲染整页，避免"闪动两次"
 import { getQuestionsByDisplayOrder } from '../core/data-loader.js';
 import { scoreAllAnswers, isHighStrength } from '../core/scoring.js';
 
-const AUTO_NEXT_DELAY = 350; // 选项点击后自动跳转延迟（让用户看到选中状态）
+const AUTO_NEXT_DELAY = 350; // 选项点击后等待时长（让用户看到选中状态）
+const FADE_OUT_DURATION = 200; // 题卡淡出动画时长（CSS transition）
 
 let state = {
   questions: [],
@@ -80,8 +82,9 @@ function renderCurrentQuestion(app) {
     nextLabel = '下一题 →';
   }
 
+  // 整个题卡包在 .question-card 里，切换时用 .fading-out 触发淡出
   app.innerHTML = `
-    <div class="fade-in">
+    <div class="question-card fade-in">
       <div class="mb-6">
         <div class="flex justify-between text-sm text-gray-500 mb-2">
           <span>第 ${currentNum} / ${totalQ} 题</span>
@@ -120,22 +123,61 @@ function renderCurrentQuestion(app) {
     </div>
   `;
 
-  // 选项点击 → 选中 → 350ms 后自动跳转
+  // 选项点击：仅切类，不重渲染
   app.querySelectorAll('.answer-btn').forEach(btn => {
     btn.addEventListener('click', () => {
+      // 防重复点击（防抖动）
+      const card = app.querySelector('.question-card');
+      if (card.classList.contains('fading-out')) return;
+
       const label = btn.dataset.label;
       if (state.phase === 'branch') {
         state.branchAnswer = label;
       } else {
         state.answers[state.currentIdx] = label;
       }
-      renderCurrentQuestion(app); // 立即重渲染显示选中状态
-      setTimeout(() => goNext(app), AUTO_NEXT_DELAY);
+
+      // 1) 立即高亮选中按钮，其他按钮变淡 + 锁定
+      app.querySelectorAll('.answer-btn').forEach(b => {
+        b.classList.add('locked');
+        if (b === btn) b.classList.add('selected');
+      });
+
+      // 2) 350ms 后题卡淡出 → 切下一题
+      setTimeout(() => fadeOutAndAdvance(app), AUTO_NEXT_DELAY);
     });
   });
 
-  document.getElementById('prev-btn').addEventListener('click', () => goPrev(app));
-  document.getElementById('next-btn').addEventListener('click', () => goNext(app));
+  document.getElementById('prev-btn').addEventListener('click', () => fadeOutAndAdvance(app, -1));
+  document.getElementById('next-btn').addEventListener('click', () => fadeOutAndAdvance(app, +1));
+}
+
+/**
+ * 题卡淡出后切题。
+ * direction: +1 下一题 / -1 上一题 / undefined 按 phase 自动决定
+ */
+function fadeOutAndAdvance(app, direction) {
+  // 已经在淡出中，忽略重复触发
+  if (app.dataset.advancing === '1') return;
+  const card = app.querySelector('.question-card');
+  if (!card) return;
+
+  // main 最后一题 + 未全部答完：禁止 next
+  const isLastMain = state.phase === 'main' && state.currentIdx === 31;
+  const allMainAnswered = state.answers.every(a => a === 'A' || a === 'B' || a === 'C');
+  if (direction === +1 && isLastMain && !allMainAnswered) return;
+
+  app.dataset.advancing = '1';
+  card.classList.add('fading-out');
+
+  setTimeout(() => {
+    if (direction === -1) {
+      goPrev(app);
+    } else {
+      goNext(app);
+    }
+    app.dataset.advancing = '0';
+  }, FADE_OUT_DURATION);
 }
 
 /**
