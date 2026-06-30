@@ -40,7 +40,7 @@
     {
       "code": "SLAB",
       "dimensions": "TALQ",
-      "name": "板爷",
+      "name": "硬板",
       "subtitle": "直爽干练派",
       "tagline": "不绕弯，不矫情。一口见底。",
       "writeup": "你喝酒不为品，为喝。要果味、要爽、要痛快。喜欢西班牙、澳洲南部那种『直给的果』。朋友里第一个倒酒，最后一个放下杯子。爱社交、爱说话、爱赢。",
@@ -52,8 +52,8 @@
     {
       "code": "WARM",
       "dimensions": "TCFR",
-      "name": "暖叔",
-      "subtitle": "重口大叔派",
+      "name": "老茶",
+      "subtitle": "厚实温暖派",
       "tagline": "一上来就挂满舌头，盘子都得让位。",
       "writeup": "你是饭局上的核心人物。酒要厚重、肉要炖得烂、话要说得响。Malbec 那种『黑巧+咖啡+烟』的调调像你。讨厌寡淡，喜欢『这酒今晚有故事』。",
       "wines": [
@@ -64,8 +64,8 @@
     {
       "code": "OLDE",
       "dimensions": "TCFQ",
-      "name": "老炮",
-      "subtitle": "古典绅士派",
+      "name": "旧木",
+      "subtitle": "古典深致派",
       "tagline": "要酸要涩要复杂，但别想一次喝明白。",
       "writeup": "你喝红酒像看一部老电影。Barolo 那种『焦油+玫瑰+皮革』的调调像你——初见不一定爱，但会越看越上头。喜欢博物馆、老建筑、爵士。爱收藏、爱读小众书、爱装低调。",
       "wines": [
@@ -76,10 +76,10 @@
     {
       "code": "DUKE",
       "dimensions": "TCLR",
-      "name": "爵爷",
-      "subtitle": "单宁王子派",
+      "name": "红木",
+      "subtitle": "厚重质感派",
       "tagline": "咬舌、挂齿、像一次漫长的拥抱。",
-      "writeup": "你很挑，但挑得有道理。Tempranillo 那种『皮革+烟草+红李』像你——直接、慢热、有厚度。爱威士忌、爱皮鞋、爱老歌。爱一本正经开玩笑，爱有故事的酒。",
+      "writeup": "你很挑，但挑得有道理。Tempranillo 那种『皮革+烟草+红李』像你——直接、慢热、有厚度。爱黑胶唱片、爱旧皮具、爱经典爵士。爱一本正经开玩笑，爱有故事的酒。",
       "wines": [
         { "name": "Bodegas Crianza Rioja 西班牙里奥哈", "price": "¥150-250", "region": "西班牙·里奥哈", "tagline": "西班牙陈酿丹魄，美国橡木桶风味" },
         { "name": "La Rioja Alta Vina Ardanza 阿尔丹萨", "price": "¥500+", "region": "里奥哈", "tagline": "里奥哈百年名庄，老派优雅" }
@@ -101,7 +101,7 @@
       "code": "SILK",
       "dimensions": "SAFR",
       "name": "丝滑",
-      "subtitle": "奶油大哥派",
+      "subtitle": "奶油质感派",
       "tagline": "像奶盖，像坚果，像开了暖气的屋子。",
       "writeup": "你喜欢『满口都是』的酒。要橡木、要奶香、要有点重量感的。Chardonnay 像你——平时低调，关键时刻有东西。爱白肉、爱黄油、爱冬天的羊毛衫。",
       "wines": [
