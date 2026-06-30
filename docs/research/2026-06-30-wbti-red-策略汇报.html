@@ -1,0 +1,1519 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WBTI·Red 红酒品味人格测试 · 产品策划汇报 v1.1</title>
+<style>
+  /* ========================================================================
+     Solarized Light Palette
+     ======================================================================== */
+  :root {
+    --base03: #002b36;
+    --base02: #073642;
+    --base01: #586e75;
+    --base00: #657b83;
+    --base0:  #839496;
+    --base1:  #93a1a1;
+    --base2:  #eee8d5;
+    --base3:  #fdf6e3;
+
+    --yellow:  #b58900;
+    --orange:  #cb4b16;
+    --red:     #dc322f;
+    --magenta: #d33682;
+    --violet:  #6c71c4;
+    --blue:    #268bd2;
+    --cyan:    #2aa198;
+    --green:   #859900;
+
+    /* 品牌保留色 */
+    --wine:      #722F37;
+    --wine-dark: #4A1E1E;
+    --gold:      #C9A96E;
+
+    --bg:        var(--base3);
+    --bg-soft:   var(--base2);
+    --text:      var(--base01);
+    --text-strong: var(--base02);
+    --text-mute: var(--base00);
+    --border:    #d8d4c5;
+    --border-soft: #e3dec8;
+
+    --link: var(--blue);
+    --link-hover: var(--violet);
+    --accent: var(--yellow);
+    --positive: var(--green);
+    --warn: var(--orange);
+    --danger: var(--red);
+
+    --font-sans: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Helvetica Neue", sans-serif;
+    --font-mono: "JetBrains Mono", "SF Mono", Menlo, Consolas, monospace;
+    --font-serif: Georgia, "Times New Roman", "Songti SC", "STSong", serif;
+
+    --max-width: 760px;
+    --toc-width: 240px;
+    --radius: 6px;
+    --shadow: 0 1px 3px rgba(7, 54, 66, 0.08);
+    --shadow-lg: 0 4px 16px rgba(7, 54, 66, 0.1);
+  }
+
+  /* ========================================================================
+     Reset & Base
+     ======================================================================== */
+  *, *::before, *::after { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-sans);
+    font-size: 16px;
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* ========================================================================
+     Top Bar
+     ======================================================================== */
+  .topbar {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(253, 246, 227, 0.92);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--border);
+    padding: 12px 24px;
+  }
+  .topbar-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+  }
+  .topbar .brand {
+    font-weight: 700;
+    color: var(--wine);
+    font-size: 16px;
+    letter-spacing: 0.02em;
+  }
+  .topbar .brand .emoji { margin-right: 6px; }
+  .topbar .meta {
+    font-size: 12px;
+    color: var(--text-mute);
+    font-family: var(--font-mono);
+  }
+  .topbar .meta a { color: var(--link); text-decoration: none; }
+  .topbar .meta a:hover { text-decoration: underline; }
+
+  /* ========================================================================
+     Layout
+     ======================================================================== */
+  .layout {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 32px 24px 80px;
+    display: grid;
+    grid-template-columns: var(--toc-width) 1fr;
+    gap: 48px;
+    align-items: start;
+  }
+
+  /* ========================================================================
+     TOC (sticky)
+     ======================================================================== */
+  .toc {
+    position: sticky;
+    top: 70px;
+    max-height: calc(100vh - 90px);
+    overflow-y: auto;
+    font-size: 13px;
+    line-height: 1.5;
+  }
+  .toc-title {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--text-mute);
+    font-weight: 600;
+    margin-bottom: 12px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border);
+  }
+  .toc ol {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  .toc li { margin: 0; }
+  .toc a {
+    display: block;
+    padding: 5px 0 5px 12px;
+    color: var(--text);
+    text-decoration: none;
+    border-left: 2px solid transparent;
+    transition: all 0.15s;
+  }
+  .toc a:hover {
+    color: var(--text-strong);
+    border-left-color: var(--border);
+  }
+  .toc a.active {
+    color: var(--wine);
+    border-left-color: var(--wine);
+    font-weight: 600;
+  }
+  .toc .lvl-3 { padding-left: 24px; font-size: 12px; }
+  .toc .lvl-3 a { padding-left: 12px; }
+
+  /* ========================================================================
+     Content
+     ======================================================================== */
+  .content {
+    max-width: var(--max-width);
+    width: 100%;
+  }
+
+  /* ========================================================================
+     Typography
+     ======================================================================== */
+  h1, h2, h3, h4 {
+    color: var(--text-strong);
+    line-height: 1.3;
+    font-weight: 700;
+  }
+  h1 { font-size: 36px; margin: 0 0 8px; letter-spacing: -0.01em; }
+  h2 {
+    font-size: 26px;
+    margin: 56px 0 16px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid var(--border);
+  }
+  h3 {
+    font-size: 20px;
+    margin: 32px 0 12px;
+    color: var(--text-strong);
+  }
+  h4 {
+    font-size: 16px;
+    margin: 24px 0 8px;
+    color: var(--text-strong);
+  }
+  p { margin: 12px 0; }
+  a { color: var(--link); text-decoration: none; }
+  a:hover { text-decoration: underline; color: var(--link-hover); }
+  strong { color: var(--text-strong); font-weight: 600; }
+  em { color: var(--text-strong); font-style: italic; }
+  code {
+    font-family: var(--font-mono);
+    font-size: 0.88em;
+    background: var(--bg-soft);
+    padding: 2px 6px;
+    border-radius: 3px;
+    color: var(--text-strong);
+  }
+  hr {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 32px 0;
+  }
+
+  /* ========================================================================
+     Cover
+     ======================================================================== */
+  .cover {
+    background: linear-gradient(135deg, var(--bg-soft) 0%, var(--bg) 100%);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 48px 40px;
+    margin-bottom: 32px;
+    position: relative;
+    overflow: hidden;
+  }
+  .cover::before {
+    content: "";
+    position: absolute;
+    top: -50%;
+    right: -10%;
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(circle, rgba(114, 47, 55, 0.06) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .cover h1 { color: var(--wine); }
+  .cover .subtitle {
+    font-size: 16px;
+    color: var(--text-mute);
+    margin: 8px 0 24px;
+    font-weight: 500;
+  }
+  .cover .meta-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px 24px;
+    font-size: 13px;
+    color: var(--text);
+    margin-top: 24px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border);
+  }
+  .cover .meta-grid .k {
+    color: var(--text-mute);
+    display: inline-block;
+    min-width: 70px;
+  }
+
+  /* ========================================================================
+     Number Cards (TL;DR)
+     ======================================================================== */
+  .number-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin: 24px 0;
+  }
+  .number-card {
+    background: var(--bg-soft);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 20px 16px;
+    text-align: center;
+    transition: all 0.2s;
+  }
+  .number-card:hover {
+    border-color: var(--wine);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow);
+  }
+  .number-card .n {
+    font-size: 36px;
+    font-weight: 700;
+    color: var(--wine);
+    line-height: 1;
+    font-family: var(--font-mono);
+  }
+  .number-card .l {
+    font-size: 12px;
+    color: var(--text-mute);
+    margin-top: 6px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  .number-card .d {
+    font-size: 12px;
+    color: var(--text);
+    margin-top: 4px;
+  }
+
+  /* ========================================================================
+     Tables
+     ======================================================================== */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    font-size: 14px;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+  }
+  thead {
+    background: var(--bg-soft);
+  }
+  th, td {
+    padding: 10px 12px;
+    text-align: left;
+    border-bottom: 1px solid var(--border-soft);
+    vertical-align: top;
+  }
+  th {
+    font-weight: 600;
+    color: var(--text-strong);
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+  tbody tr:nth-child(even) { background: rgba(238, 232, 213, 0.4); }
+  tbody tr:hover { background: rgba(181, 137, 0, 0.06); }
+  tbody tr:last-child td { border-bottom: none; }
+  td code { white-space: nowrap; }
+
+  /* ========================================================================
+     Callouts
+     ======================================================================== */
+  blockquote {
+    margin: 16px 0;
+    padding: 12px 20px;
+    background: var(--bg-soft);
+    border-left: 3px solid var(--blue);
+    border-radius: 0 var(--radius) var(--radius) 0;
+    color: var(--text);
+  }
+  blockquote.warning { border-left-color: var(--orange); }
+  blockquote.success { border-left-color: var(--green); }
+  blockquote.idea { border-left-color: var(--violet); }
+  blockquote.quote { border-left-color: var(--wine); background: #faf2ee; }
+
+  /* ========================================================================
+     Lists
+     ======================================================================== */
+  ul, ol { padding-left: 24px; }
+  li { margin: 4px 0; }
+  li::marker { color: var(--text-mute); }
+
+  /* ========================================================================
+     Code (inline, no full blocks needed)
+     ======================================================================== */
+  pre {
+    background: var(--base2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 16px;
+    overflow-x: auto;
+    font-family: var(--font-mono);
+    font-size: 13px;
+    line-height: 1.5;
+  }
+
+  /* ========================================================================
+     Special: Wine-color highlights
+     ======================================================================== */
+  .wine { color: var(--wine); font-weight: 600; }
+  .gold { color: var(--yellow); font-weight: 600; }
+  .mono { font-family: var(--font-mono); font-size: 0.92em; }
+  .small { font-size: 13px; color: var(--text-mute); }
+
+  /* ========================================================================
+     Insight callout (分析洞察)
+     ======================================================================== */
+  .insight {
+    background: linear-gradient(135deg, #faf2ee 0%, var(--bg-soft) 100%);
+    border: 1px solid #e8d4cb;
+    border-left: 4px solid var(--wine);
+    border-radius: var(--radius);
+    padding: 16px 20px;
+    margin: 16px 0;
+  }
+  .insight .label {
+    display: inline-block;
+    background: var(--wine);
+    color: var(--base3);
+    font-size: 11px;
+    padding: 2px 10px;
+    border-radius: 3px;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-weight: 600;
+  }
+  .insight .title {
+    font-weight: 600;
+    color: var(--text-strong);
+    margin-bottom: 4px;
+  }
+
+  /* ========================================================================
+     Footer
+     ======================================================================== */
+  footer {
+    margin-top: 80px;
+    padding-top: 24px;
+    border-top: 1px solid var(--border);
+    color: var(--text-mute);
+    font-size: 13px;
+    text-align: center;
+  }
+
+  /* ========================================================================
+     Responsive
+     ======================================================================== */
+  @media (max-width: 900px) {
+    .layout {
+      grid-template-columns: 1fr;
+      gap: 24px;
+      padding: 16px;
+    }
+    .toc {
+      position: relative;
+      top: 0;
+      max-height: none;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 16px;
+      background: var(--bg-soft);
+    }
+    .toc ol { display: flex; flex-wrap: wrap; gap: 4px 12px; }
+    .toc a { padding: 2px 8px; border-left: none; border-radius: 3px; }
+    .toc a.active { background: var(--wine); color: var(--base3); }
+    .toc .lvl-3 { display: none; }
+    .number-grid { grid-template-columns: repeat(2, 1fr); }
+    .cover { padding: 32px 24px; }
+    h1 { font-size: 28px; }
+    h2 { font-size: 22px; }
+    table { font-size: 13px; }
+    th, td { padding: 8px; }
+  }
+  @media (max-width: 480px) {
+    .number-grid { grid-template-columns: 1fr 1fr; }
+    .cover .meta-grid { grid-template-columns: 1fr; }
+  }
+
+  /* ========================================================================
+     Print
+     ======================================================================== */
+  @media print {
+    .topbar, .toc { display: none; }
+    .layout { grid-template-columns: 1fr; max-width: 100%; }
+    body { font-size: 12pt; }
+    h2 { page-break-after: avoid; }
+    .number-card, .insight, blockquote { page-break-inside: avoid; }
+  }
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <div class="brand"><span class="emoji">🍷</span>WBTI·Red 策略汇报</div>
+    <div class="meta">
+      v1.1 · 2026-06-30 ·
+      <a href="https://w54520-png.github.io/-wbti/wine.html" target="_blank">线上版 →</a>
+    </div>
+  </div>
+</header>
+
+<div class="layout">
+
+  <!-- ====================================================================
+       TOC
+       ==================================================================== -->
+  <aside class="toc" id="toc">
+    <div class="toc-title">目录</div>
+    <ol>
+      <li><a href="#sec-1">1. 执行摘要 TL;DR</a></li>
+      <li><a href="#sec-2">2. 市场洞察</a></li>
+      <li><a href="#sec-3">3. 同类型案例分析</a></li>
+      <li><a href="#sec-4">4. 思考策略</a></li>
+      <li><a href="#sec-5">5. 定位 & 差异化</a></li>
+      <li><a href="#sec-6">6. 设计哲学</a></li>
+      <li><a href="#sec-7">7. 用户旅程</a></li>
+      <li><a href="#sec-8">8. 技术架构</a></li>
+      <li><a href="#sec-9">9. 18 型人格总览</a></li>
+      <li><a href="#sec-10">10. 数据 & 验证</a></li>
+      <li><a href="#sec-11">11. 传播推广</a></li>
+      <li><a href="#sec-12">12. 上线 & 迭代</a></li>
+      <li><a href="#sec-13">13. 风险 & 应对</a></li>
+      <li><a href="#sec-14">14. 附录</a></li>
+    </ol>
+  </aside>
+
+  <!-- ====================================================================
+       Content
+       ==================================================================== -->
+  <main class="content">
+
+    <!-- ================================================================
+         Cover
+         ================================================================ -->
+    <section class="cover">
+      <h1>WBTI·Red 红酒品味人格测试</h1>
+      <div class="subtitle">产品策划汇报 v1.1</div>
+      <p>把"性格测试 → 葡萄品种 → 推荐酒款"三段合并到一个 3 分钟在线 H5 里——<strong>国内目前没有人做到</strong>。</p>
+      <div class="meta-grid">
+        <div><span class="k">项目</span> WBTI（Wine + MBTI）性格测试 · 红酒版</div>
+        <div><span class="k">版本</span> v1.1 / 2026-06-30</div>
+        <div><span class="k">读者</span> 产品负责人 / 老板</div>
+        <div><span class="k">部署</span> <a href="https://w54520-png.github.io/-wbti/wine.html" target="_blank">w54520-png.github.io/-wbti/wine.html</a></div>
+        <div><span class="k">底稿</span> <a href="./red-wine-proposal.md">red-wine-proposal.md</a> · <a href="./red-wine-design-basis.md">red-wine-design-basis.md</a></div>
+        <div><span class="k">成本</span> ¥0 / 月（GitHub Pages 免费）</div>
+      </div>
+    </section>
+
+    <!-- ================================================================
+         1. TL;DR
+         ================================================================ -->
+    <section id="sec-1">
+      <h2>1. 执行摘要 TL;DR</h2>
+      <p>WBTI·Red 是一个<strong>用性格测试包装的红酒品鉴入门工具</strong>。用户答完 32 道看似无关的生活场景题，会被告知自己属于 18 种"性格"之一，并获得 2 款对应的酒款推荐。</p>
+      <p>整个产品<strong>零后端、零注册、零收费</strong>，3 分钟出结果，部署在 GitHub Pages。技术栈只有 HTML + ES Module + JSON。</p>
+
+      <h3>6 个核心数字</h3>
+      <div class="number-grid">
+        <div class="number-card">
+          <div class="n">18</div>
+          <div class="l">人格类型</div>
+          <div class="d">16 常规 + 2 隐藏</div>
+        </div>
+        <div class="number-card">
+          <div class="n">32</div>
+          <div class="l">题目数量</div>
+          <div class="d">8 极 × 4 题</div>
+        </div>
+        <div class="number-card">
+          <div class="n">4×8</div>
+          <div class="l">维度 × 极</div>
+          <div class="d">浓度/敏锐/信息量/节奏</div>
+        </div>
+        <div class="number-card">
+          <div class="n">2</div>
+          <div class="l">隐藏人格</div>
+          <div class="d">酒仙 / 百搭</div>
+        </div>
+        <div class="number-card">
+          <div class="n">36</div>
+          <div class="l">推荐酒款</div>
+          <div class="d">18 型 × 2 款</div>
+        </div>
+        <div class="number-card">
+          <div class="n">0</div>
+          <div class="l">题面暴露"酒/单宁"</div>
+          <div class="d">揭晓才知</div>
+        </div>
+      </div>
+
+      <h3>3 个关键判断</h3>
+      <ol>
+        <li><strong>这是一个真机会</strong>：2026 年 MBTI 红利仍在持续（SBTI 现象级刷屏），但酒类内容供给端严重缺位</li>
+        <li><strong>我们有可复制的壁垒</strong>：把"性格 + 品种 + 酒款"做成一件事的工程化能力，国内无人做齐</li>
+        <li><strong>这是一个低风险高传播的产品</strong>：零成本、零合规风险（纯娱乐向）、社交裂变基因强</li>
+      </ol>
+    </section>
+
+    <!-- ================================================================
+         2. 市场洞察
+         ================================================================ -->
+    <section id="sec-2">
+      <h2>2. 市场洞察：人格测试赛道的"酒水缺位"</h2>
+
+      <h3>2.1 三条线同时存在但没人合并</h3>
+      <p>人格测试赛道在 2024-2026 出现了"三线并行"现象，但<strong>没有一条线把"性格 + 葡萄酒"做到闭环</strong>：</p>
+      <table>
+        <thead>
+          <tr><th>赛道</th><th>代表内容</th><th>形态</th><th>痛点</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>线 A：MBTI × 酒（图文）</td><td>抖音图文"当葡萄酒遇见 MBTI"、逃牛岭 MBTI 速查</td><td>静态图文</td><td>停在"性格标签"，缺酒款落地</td></tr>
+          <tr><td>线 B：酒类电商/种草</td><td>抖音红酒带货、小红书种草</td><td>视频+图文</td><td>缺人格化入口，转化漏斗冷启动难</td></tr>
+          <tr><td>线 C：博物馆互动装置</td><td>法国 La Cité du Vin「Le Vin et moi」</td><td>多人围坐互动桌</td><td>线下黑箱，触达不到线上用户</td></tr>
+        </tbody>
+      </table>
+
+      <h3>2.2 目标人群画像</h3>
+      <table>
+        <tbody>
+          <tr><td><strong>年龄</strong></td><td>25-35 岁</td></tr>
+          <tr><td><strong>城市</strong></td><td>一线/新一线</td></tr>
+          <tr><td><strong>收入</strong></td><td>月入 1-3 万</td></tr>
+          <tr><td><strong>消费心理</strong></td><td>听过赤霞珠/黑皮诺/霞多丽，但说不清区别；愿意为"有故事的酒"付 ¥200-500</td></tr>
+          <tr><td><strong>触媒习惯</strong></td><td>微信朋友圈、小红书、抖音图文</td></tr>
+        </tbody>
+      </table>
+
+      <h3>2.3 分析洞察</h3>
+
+      <div class="insight">
+        <span class="label">洞察 1</span>
+        <div class="title">人格测试的传播本质是"社交货币"，不是"性格真相"</div>
+        用户测完之后转发，不是因为结果"准"，是因为结果"配得上自己想让别人看到的形象"。巴纳姆效应 + 结果关键词的普适性 = 90% 的人觉得"准"。
+        <br><strong>设计含义</strong>：18 型的速写必须"既能往自己身上贴，又能往朋友圈晒"。
+      </div>
+
+      <div class="insight">
+        <span class="label">洞察 2</span>
+        <div class="title">酒类内容的"专业感门槛"是劝退器，不是诱饵</div>
+        Wine Folly、VinePair 等国外内容平台流量天花板明显，核心原因：英文 + 极专业 + 极小众。国内"白酒"内容能爆，"红酒"内容相对冷——因为红酒知识门槛高、白酒有"江湖气"传播基因。
+        <br><strong>设计含义</strong>：我们用"性格"做翻译层，把"单宁/酸度"包装成"浓度/敏锐"，让零基础用户能进入。
+      </div>
+
+      <div class="insight">
+        <span class="label">洞察 3</span>
+        <div class="title">博物馆互动装置 200 万访客，验证了"测试型酒类内容"的强需求</div>
+        La Cité du Vin 的「Le Vin et moi」互动桌是 2016 年开馆至今的常设展项。2018 年突破 100 万访客、2022 年突破 200 万访客。
+        <br><strong>设计含义</strong>：测试型酒类内容有全球性需求，但线下装置有"地理限制"，在线 H5 是降维版的解。
+      </div>
+    </section>
+
+    <!-- ================================================================
+         3. 同类型案例分析
+         ================================================================ -->
+    <section id="sec-3">
+      <h2>3. 同类型案例分析：国内 5 + 国外 3 + 营销 H5</h2>
+
+      <h3>3.1 矩阵对比（核心证据页）</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>案例</th>
+            <th>形式</th>
+            <th>维度</th>
+            <th>到品种</th>
+            <th>到酒款</th>
+            <th>仪式感</th>
+            <th>流量</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>当葡萄酒遇见 MBTI（抖音）</td><td>图文</td><td>MBTI 16 型</td><td>✅</td><td>❌</td><td>弱</td><td>5k-2w</td></tr>
+          <tr><td>逃牛岭 MBTI 速查</td><td>图文</td><td>MBTI 16 型</td><td>✅</td><td>✅</td><td>弱</td><td>1-3w</td></tr>
+          <tr><td>果酒 MBTI（抖音）</td><td>图文</td><td>MBTI 16 型</td><td>❌</td><td>❌</td><td>弱</td><td>1-2w</td></tr>
+          <tr><td>茅台 MBTI 选酒（搜狐）</td><td>文章</td><td>E/I 二分</td><td>❌</td><td>✅</td><td>弱</td><td>10w+</td></tr>
+          <tr><td>6 类酒人格（澎湃）</td><td>文章</td><td>3-6 类</td><td>部分</td><td>❌</td><td>弱</td><td>5-20w</td></tr>
+          <tr><td>性格→葡萄酒（9998.TV）</td><td>文章</td><td>4 类</td><td>✅</td><td>✅</td><td>弱</td><td>行业站</td></tr>
+          <tr><td>La Cité du Vin「Le Vin et moi」</td><td>线下互动桌</td><td>未知</td><td>✅</td><td>❌</td><td>强</td><td>200万+</td></tr>
+          <tr><td>Tim Hanni Vinotype</td><td>在线问卷</td><td>4 类生理</td><td>❌</td><td>❌</td><td>弱</td><td>学术小众</td></tr>
+          <tr><td>Wine Folly Wine Personality</td><td>网页</td><td>自由匹配</td><td>✅</td><td>✅</td><td>中</td><td>流量中</td></tr>
+          <tr><td>网易"荣格心理学测试"</td><td>H5</td><td>双重人格</td><td>❌</td><td>❌</td><td>强</td><td>1 天 10 万转发</td></tr>
+          <tr><td>SBTI（2026.04 现象级）</td><td>H5</td><td>MBTI 戏谑</td><td>❌</td><td>❌</td><td>强</td><td>服务器挤崩</td></tr>
+          <tr style="background: rgba(114, 47, 55, 0.08);"><td><strong>WBTI·Red（本项目）</strong></td><td><strong>H5</strong></td><td><strong>4 维</strong></td><td><strong>✅</strong></td><td><strong>✅</strong></td><td><strong>强</strong></td><td><strong>上线中</strong></td></tr>
+        </tbody>
+      </table>
+
+      <h3>3.2 案例深度解读</h3>
+
+      <h4>案例 1：La Cité du Vin「Le Vin et moi」（法国波尔多）</h4>
+      <blockquote class="quote">
+        "If you were a wine, which one would you be? Are you more jazz or rock? In this section of the Permanent Exhibition, take your place at the interactive table and let yourself be guided by our original test and discover the wine that best reflects your personality!"
+        <br><span class="small">— La Cité du Vin 官方原文</span>
+      </blockquote>
+      <p>2016 年开馆至今的常设展项。2018 年突破 100 万访客、2022 年突破 200 万访客。形式：多人围坐互动桌 + 音乐/生活/性格问题。</p>
+      <p><strong>核心缺陷</strong>：题量、维度、结果分类未公开，是纯场馆内黑箱装置。<strong>不可触达</strong>线上用户。</p>
+      <p><strong>我们的做法</strong>：把"线下互动桌"降维为"3 分钟在线 H5"，核心仪式感相同，但可触达全球用户。</p>
+
+      <h4>案例 2：Tim Hanni Vinotype（学术标杆）</h4>
+      <p>作者 Tim Hanni 是美国<strong>最早两位世界品酒大师之一</strong>（1990 年伦敦获 MW）。框架基于"感觉生理敏感度"，4 类分类：</p>
+      <table>
+        <thead>
+          <tr><th>类型</th><th>特征</th><th>占比/倾向</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>SWEET</strong>（甜食偏好型）</td><td>高敏感度，偏好低酒精度细腻风格</td><td>约 70% 女性 / 30% 男性</td></tr>
+          <tr><td><strong>HYPERSENSITIVE</strong>（高度敏感型）</td><td>敏感度顶端，挑剔，偏好熟悉风味</td><td>小众</td></tr>
+          <tr><td><strong>SENSITIVE</strong>（敏感型）</td><td>中间位置，适应范围最广，最有弹性</td><td>主流</td></tr>
+          <tr><td><strong>TOLERANT</strong>（宽容型）</td><td>寻求强度，果断，爱浓郁风格</td><td>爱大胆</td></tr>
+        </tbody>
+      </table>
+      <p><strong>核心缺陷</strong>：Vinotype 是<strong>生理敏感度量表</strong>，不是"性格量表"——这是它的学术严谨性，也是它难以做成社交传播产品的根本原因。</p>
+      <p><strong>我们的做法</strong>：<strong>借鉴 Vinotype 的"4 维框架"重新定义"性格维度"</strong>——既保留学术依据，又适配社交传播。</p>
+
+      <h4>案例 3：SBTI（2026-04 现象级刷屏）</h4>
+      <p>2026 年 4 月 9 日晚刷屏朋友圈，制作者自称"非心理学专业，初衷是为了劝朋友戒酒"。测出"死者 DEAD""吗喽 MALO""送钱者 ATM-er"等抽象自嘲标签。流量：服务器被挤崩、微博热搜登顶。</p>
+      <blockquote class="idea">
+        <strong>关键文案</strong>："MBTI 已经过时，SBTI 来了"
+      </blockquote>
+      <p><strong>核心洞察</strong>：</p>
+      <ul>
+        <li>用户接受"娱乐向"测试，<strong>自嘲式结果比"科学感"结果更易传播</strong></li>
+        <li>"过时/来了"句式是病毒钩子</li>
+        <li>酒类内容天然适合"自嘲"（"我是酒鬼""我是混子"等）</li>
+      </ul>
+      <p><strong>我们的做法</strong>：借鉴"自嘲式"语气（在 18 型速写里）、借鉴"MBTI 进化"叙事、借势 SBTI 长尾流量。</p>
+
+      <h4>案例 4：网易"荣格心理学测试"（方法论标杆）</h4>
+      <p>2018 年 8 月推出，<strong>上线 1 天 10 万人转发</strong>、服务器被挤崩。关键机制：</p>
+      <ul>
+        <li><strong>巴纳姆效应</strong> + 结果关键词的普适性 = 90% 用户觉得"准"</li>
+        <li>心理学家荣格的"科学光环"加持</li>
+        <li>输入昵称 → 生成专属人格卡片 → 长按保存 → 朋友圈分享</li>
+      </ul>
+      <p><strong>我们的做法</strong>：复用"输入昵称生成卡片"机制、复用"长按保存"降低分享门槛、在"科学光环"上用 Vinotype 学术依据替代。</p>
+
+      <h3>3.3 同行没做的 = 我们做</h3>
+      <table>
+        <thead>
+          <tr><th>维度</th><th>同行</th><th>WBTI·Red</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>形式</td><td>静态图文 / 文章 / 线下</td><td><strong>3 分钟在线 H5</strong></td></tr>
+          <tr><td>维度</td><td>MBTI 1:1 借用 / 1-2 维</td><td><strong>4 维（自创，借鉴 Vinotype 框架）</strong></td></tr>
+          <tr><td>揭晓</td><td>当场公布，无悬念</td><td><strong>先性格后揭酒（戏剧曲线）</strong></td></tr>
+          <tr><td>题面</td><td>直接谈 MBTI 或酒</td><td><strong>32 题 0 处"酒/单宁/酸度"</strong></td></tr>
+          <tr><td>酒款</td><td>缺 / 单一品牌</td><td><strong>18 型 × 2 款 = 36 款</strong></td></tr>
+          <tr><td>仪式感</td><td>弱（读完即走）</td><td><strong>强（4 字母代号 + 4 维指纹 + 长按保存）</strong></td></tr>
+          <tr><td>学术背书</td><td>0</td><td><strong>借鉴 Vinotype 感官敏感度框架</strong></td></tr>
+          <tr><td>成本</td><td>拍摄/编辑/线下装置</td><td><strong>零成本，GitHub Pages 免费</strong></td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- ================================================================
+         4. 思考策略
+         ================================================================ -->
+    <section id="sec-4">
+      <h2>4. 思考策略：我们怎么一步步想清楚</h2>
+      <p>这一节回答"<strong>我们是怎么做出这些决策的</strong>"——设计的方法论。</p>
+
+      <h3>4.1 思考框架：3 个核心问题</h3>
+      <p>每做一个决策，我们都回到这 3 个问题：</p>
+      <ol>
+        <li><strong>这个决策是不是"用户测完之后会晒朋友圈"？</strong>（传播性）</li>
+        <li><strong>这个决策是不是"零基础用户也能答出来"？</strong>（参与门槛）</li>
+        <li><strong>这个决策是不是"做完后能跟同行拉开差距"？</strong>（差异化）</li>
+      </ol>
+
+      <h3>4.2 思考路径：4 个反向追问</h3>
+      <p>我们用"4 个反向追问"避免主观偏好污染设计：</p>
+      <table>
+        <thead>
+          <tr><th>#</th><th>反向追问</th><th>我们的回答</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1</td>
+            <td>为什么不直接用 MBTI 16 型？</td>
+            <td>MBTI 是认知偏好（4 字母认知维度），与"葡萄酒品味"映射太牵强。<strong>自创 4 维更适配</strong></td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td>为什么要 32 题而不是 16 题？</td>
+            <td>16 题每极只 2 题，<strong>统计信度太弱</strong>。32 题 = 8 极 × 4 题，<strong>信度与时长的甜点</strong></td>
+          </tr>
+          <tr>
+            <td>3</td>
+            <td>为什么不直接告诉用户"测的是酒"？</td>
+            <td>揭晓前不知道是酒 = <strong>仪式感 = 转发率</strong>。"我居然是一种酒"比"我又测了一次 MBTI"传播力强 10 倍</td>
+          </tr>
+          <tr>
+            <td>4</td>
+            <td>为什么不直接用葡萄品种做代号？</td>
+            <td>葡萄品种名 = 知识门槛，<strong>零基础用户记不住</strong>。4 字母英文代号 = "我是 BOLD 硬派"远比"我是赤霞珠型"易传播</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3>4.3 思考方法：5 个避免踩坑</h3>
+      <table>
+        <thead>
+          <tr><th>坑</th><th>我们怎么避开</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>维度名太专业（"单宁/酸度/酒体/回味"）</td><td>翻译成"<strong>浓度/敏锐/信息量/节奏</strong>"——人话先行</td></tr>
+          <tr><td>代号是音译（"卡爸/西啦/皮啦"）</td><td>用<strong>语义化英文</strong>（BOLD/HARD/SILK/MINT）——3-5 字母、有联想、适合做身份徽章</td></tr>
+          <tr><td>角色名性别化（"板爷/暖叔/老炮"）</td><td>改为<strong>物质名词</strong>（硬板/老茶/旧木/红木/丝滑）——中性、画面感强</td></tr>
+          <tr><td>题目直白问"酒"</td><td>32 题全部<strong>生活化场景</strong>（餐厅/电影/朋友/做决定/学习）</td></tr>
+          <tr><td>一上来就告诉"我们是测酒的"</td><td>首页只说"测一种性格"，<strong>揭晓页才出现"🍷 你喝的酒"</strong></td></tr>
+        </tbody>
+      </table>
+
+      <h3>4.4 思考工具：3 个验证机制</h3>
+      <table>
+        <thead>
+          <tr><th>工具</th><th>怎么用</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1000 次随机模拟</td>
+            <td>写完 matcher 后用 <code>node</code> 跑 1000 次随机答题，验证 VINT 触发率 &lt;1%、BLEN 触发率 &lt;5%、16 常规均匀分布</td>
+          </tr>
+          <tr>
+            <td>内测 + 旁观</td>
+            <td>找 5 个"不知情"朋友测一遍，<strong>观察他们什么时候发"啊原来测的是酒"的惊叹</strong>——确认仪式感在第 27 题触发</td>
+          </tr>
+          <tr>
+            <td>评论区挖宝</td>
+            <td>通用版 WBTI 上线后评论区收集反馈："我是 XX 型，我想测我是什么酒"——验证"性格→酒"的迁移需求真实存在</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3>4.5 思考哲学</h3>
+      <blockquote class="idea">
+        <strong>白盒化原则</strong>：所有决策都能用一句话讲清楚"为什么"，不藏暗线。
+        <br>所有题目、所有代号、所有速写、所有匹配规则，在 admin 页面（<code>/#/wine-admin</code>）完全可审阅。
+      </blockquote>
+    </section>
+
+    <!-- ================================================================
+         5. 定位 & 差异化
+         ================================================================ -->
+    <section id="sec-5">
+      <h2>5. 产品定位 & 差异化</h2>
+
+      <h3>5.1 定位</h3>
+      <p><strong>主推 slogan</strong>：「你的红酒人格，3 分钟揭晓」</p>
+      <p><strong>备选</strong>：</p>
+      <ul>
+        <li>「32 道生活题，测出你骨子里是哪瓶酒」</li>
+        <li>「如果你是一瓶酒，会是哪瓶？」（La Cité du Vin 原话翻译）</li>
+      </ul>
+
+      <h3>5.2 四大差异化支柱</h3>
+      <table>
+        <thead>
+          <tr><th>支柱</th><th>内容</th><th>佐证</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>1. 三段一体</strong></td><td>性格 + 品种 + 酒款，一页给完</td><td>国内无人做齐</td></tr>
+          <tr><td><strong>2. 零暴露</strong></td><td>32 题 0 处"酒/单宁/酸度"，结果页才揭晓</td><td>仪式感 = 转发率</td></tr>
+          <tr><td><strong>3. 隐藏人格</strong></td><td>酒仙（极端）/ 百搭（中庸）= 彩蛋社交货币</td><td>18 → 21 型病毒钩子</td></tr>
+          <tr><td><strong>4. 学术背书</strong></td><td>借鉴 Vinotype 感官敏感度框架</td><td>国内外同行没有</td></tr>
+        </tbody>
+      </table>
+
+      <h3>5.3 不做的事（同样重要）</h3>
+      <ul>
+        <li>❌ 不做 MBTI 16 型 1:1 映射</li>
+        <li>❌ 不做"测完推荐购物车"（避免电商化失焦）</li>
+        <li>❌ 不做账号体系（不存数据、不留用户）</li>
+        <li>❌ 不做白葡萄酒/威士忌/鸡尾酒测试（聚焦红酒单品类）</li>
+        <li>❌ 不在题面暴露"酒"字（仪式感核心）</li>
+      </ul>
+
+      <h3>5.4 一句话壁垒</h3>
+      <blockquote class="quote">
+        国内做酒人格测试的，<strong>要么停在性格标签（无酒款），要么停在酒款推荐（无性格），要么停在科普文章（无互动）</strong>。我们把"性格 + 品种 + 酒款 + 互动 + 仪式感"做成一个 3 分钟在线 H5——这是国内目前唯一。
+      </blockquote>
+    </section>
+
+    <!-- ================================================================
+         6. 设计哲学
+         ================================================================ -->
+    <section id="sec-6">
+      <h2>6. 设计哲学：4 维 / 8 极 / 18 型</h2>
+
+      <h3>6.1 4 维度：把"专业词"翻译成"人话"</h3>
+      <table>
+        <thead>
+          <tr><th>维度代号</th><th>维度名</th><th>极 A</th><th>极 B</th><th>一句话解释</th><th>出处</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><code>T ↔ S</code></td><td><strong>浓度</strong></td><td>重（挂杯、压舌）</td><td>轻（一饮而尽）</td><td>喝完牙齿涩不涩</td><td>借鉴 Vinotype 敏感度</td></tr>
+          <tr><td><code>A ↔ C</code></td><td><strong>敏锐</strong></td><td>挑（舌尖放电）</td><td>钝（圆润下肚）</td><td>喝完流不流口水</td><td>借鉴 Vinotype</td></tr>
+          <tr><td><code>F ↔ L</code></td><td><strong>信息量</strong></td><td>满（含在口中）</td><td>轻（一饮而尽）</td><td>是浓汤还是清汤</td><td>通用版 WBTI 同款</td></tr>
+          <tr><td><code>R ↔ Q</code></td><td><strong>节奏</strong></td><td>慢（挥之不去）</td><td>快（见好就收）</td><td>喝完多久还能感觉</td><td>通用版 WBTI 同款</td></tr>
+        </tbody>
+      </table>
+
+      <p><strong>为什么是这 4 个维度</strong>：</p>
+      <ul>
+        <li>4 维 = 2⁴ = 16 常规组合（不冗余、不缺失）</li>
+        <li>4 维 = 用户答完能记住（人类短期记忆上限 5±2）</li>
+        <li>4 维 = 视觉化可呈现（4 维指纹条进度条）</li>
+      </ul>
+
+      <h3>6.2 8 极命名逻辑</h3>
+      <table>
+        <thead>
+          <tr><th>极</th><th>红酒专业词</th><th>性格化翻译</th><th>单字母代号</th><th>含义</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Tannin 高</td><td>浓度·重</td><td>T</td><td>主极（正向）</td></tr>
+          <tr><td>Tannin 低</td><td>浓度·轻</td><td>S</td><td>反极</td></tr>
+          <tr><td>Acidity 高</td><td>敏锐·挑</td><td>A</td><td>主极</td></tr>
+          <tr><td>同 C 不对应英文</td><td>敏锐·钝</td><td>C</td><td>配对代号</td></tr>
+          <tr><td>Full body</td><td>信息·满</td><td>F</td><td>主极</td></tr>
+          <tr><td>Light body</td><td>信息·轻</td><td>L</td><td>反极</td></tr>
+          <tr><td>Remain/long</td><td>节奏·慢</td><td>R</td><td>主极</td></tr>
+          <tr><td>Quick</td><td>节奏·快</td><td>Q</td><td>反极</td></tr>
+        </tbody>
+      </table>
+      <p class="small">注：C 是为了不和 A 冲突特设的代号，Q 是 Quick 的缩写。</p>
+
+      <h3>6.3 18 型代号风格分类</h3>
+      <table>
+        <thead>
+          <tr><th>风格</th><th>代号</th><th>中文名</th><th>调性</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>状态词</strong></td><td>BOLD / HARD / MILD</td><td>硬派 / 烈性 / 温和</td><td>中性硬朗</td></tr>
+          <tr><td><strong>物质词</strong></td><td>SILK / MINT / SPICE / DEW</td><td>丝滑 / 薄荷 / 香料 / 露珠</td><td>感官系</td></tr>
+          <tr><td><strong>场景词</strong></td><td>DUKE / OLDE / CALM / FREE</td><td>红木 / 旧木 / 闲云 / 撒野</td><td>复古意境</td></tr>
+          <tr><td><strong>食物词</strong></td><td>PEACH / JAM</td><td>蜜桃 / 果酱</td><td>甜渣党</td></tr>
+          <tr><td><strong>隐藏型</strong></td><td>SAGE / MIX</td><td>酒仙 / 百搭</td><td>彩蛋感</td></tr>
+        </tbody>
+      </table>
+
+      <p><strong>命名原则</strong>：</p>
+      <ol>
+        <li>英文 3-5 字母 + 有语义联想（不是无意义字母组合）</li>
+        <li>中文 2-3 字 + 物质/状态名词（不是江湖切口）</li>
+        <li><strong>不音译</strong>（不写"卡爸/西啦/皮啦"）——避免搜索穿透 + 提升国际化</li>
+        <li><strong>中性化</strong>（不写"爷/叔/王子/绅士"）——男女通吃</li>
+      </ol>
+
+      <h3>6.4 为什么 18 型 = 16 + 2</h3>
+      <ul>
+        <li><strong>16</strong> = 4 维 8 极笛卡尔积（理论 2⁴ = 16）</li>
+        <li><strong>+2 隐藏</strong> = 极端型（4 维都打满 + 反向打满）+ 中庸型（所有正向极都不偏好）</li>
+        <li>隐藏型不是"增加维度"，是"增加意外"——<strong>用户测出常规 16 型是"意料之中"，测出 SAGE/MIX 是"意料之外"</strong>，后者是社交传播的真正钩子</li>
+      </ul>
+
+      <h3>6.5 为什么 32 题</h3>
+      <ul>
+        <li>8 极 × 4 题/极 = 32 题</li>
+        <li><strong>4 题/极</strong> 是统计信度与答题时长的甜点：
+          <ul>
+            <li>2 题/极 → 信度太弱，常规人格被隐藏人格吞</li>
+            <li>4 题/极 → 每极得分 -4..+4，区分度足够</li>
+            <li>8 题/极 → 时长超过 5 分钟，完成率下降 30%+</li>
+          </ul>
+        </li>
+        <li><strong>3 分钟完成</strong> = 用户耐心阈值内（H5 平均完成时长 2-4 分钟）</li>
+      </ul>
+    </section>
+
+    <!-- ================================================================
+         7. 用户旅程
+         ================================================================ -->
+    <section id="sec-7">
+      <h2>7. 用户旅程：5 屏体验</h2>
+
+      <h3>7.1 5 屏（+ 2 屏分享/探索 = 7 屏）</h3>
+      <table>
+        <thead>
+          <tr><th>#</th><th>屏</th><th>内容</th><th>设计要点</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>1</td><td>首页 / Hero</td><td>标题 + 副标题 + 「开始测试」按钮</td><td>极简风，4 维度暗示（不暴露关键词）</td></tr>
+          <tr><td>2</td><td>答前引导（=首页内含）</td><td>"32 题 / 3 分钟 / 无登录" + 「准备好了」</td><td>减承诺、增勇气</td></tr>
+          <tr><td>3</td><td>答题</td><td>单题单屏 + 进度条 + 题卡淡入淡出</td><td>A/B/C 三选项居中大字</td></tr>
+          <tr><td>4</td><td>中转</td><td>"正在解读你的 4 个维度…" 0.6s 加载</td><td>给揭晓仪式感留白</td></tr>
+          <tr><td>5</td><td>结果</td><td>4 字母代号 + 中文名 + 品种 + 2 酒款 + 速写 + 4 维指纹</td><td>一屏给完，三段一体</td></tr>
+          <tr><td>6</td><td>分享</td><td>一键复制 / 长按保存 / 微信分享</td><td>4 字母 + 品种名 + emoji 为主视觉</td></tr>
+          <tr><td>7</td><td>探索</td><td>18 型索引 + 关于</td><td>给"测完想再看其他型"的用户兜底</td></tr>
+        </tbody>
+      </table>
+
+      <h3>7.2 时间线</h3>
+      <pre>首页(0s) → 开始(5s) → 答题(120s) → 中转(123s) → 结果(125s) → 分享(140s)</pre>
+
+      <h3>7.3 关键 UX 决策</h3>
+      <table>
+        <thead>
+          <tr><th>决策</th><th>理由</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>单题单屏</td><td>避免"一屏多题"造成选择疲劳</td></tr>
+          <tr><td>选项点击后 350ms 自动跳下一题</td><td>减少操作步骤 + 流畅感</td></tr>
+          <tr><td>最后一题选完显示"提交"</td><td>给用户"我答完了"的明确信号</td></tr>
+          <tr><td>中转页 0.6s loading</td><td>给"揭晓仪式感"留白（不能秒出结果）</td></tr>
+          <tr><td>结果页 4 维指纹可视化</td><td>让用户"看见"自己的维度倾向</td></tr>
+          <tr><td>分享文案 = "我测出一种性格：【CODE 名】——tagline"</td><td>复制即用，降低传播成本</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- ================================================================
+         8. 技术架构
+         ================================================================ -->
+    <section id="sec-8">
+      <h2>8. 技术架构：零后端、零成本、零运维</h2>
+
+      <h3>8.1 栈</h3>
+      <ul>
+        <li><strong>纯 HTML + ES Module + JSON</strong></li>
+        <li><strong>零依赖、零后端、零构建</strong></li>
+        <li>部署：GitHub Pages（免费）+ Vercel 兼容</li>
+      </ul>
+
+      <h3>8.2 目录结构</h3>
+      <pre>wine.html（入口）
+├── css/wine-styles.css      红酒版样式（酒红主色 #722F37）
+├── js/wine/
+│   ├── app.js               hash 路由（7 条规则）
+│   ├── core/
+│   │   ├── data-loader.js   加载 JSON（带缓存）
+│   │   ├── scoring.js       32 题 → 8 极分
+│   │   └── matcher.js       8 极分 → 18 型（含 VINT/BLEN 触发）
+│   └── pages/
+│       ├── wine-home.js     首页（极简 hero）
+│       ├── wine-test.js     答题（单题推进）
+│       ├── wine-result.js   结果（中转+详情）
+│       ├── wine-types.js    18 型索引
+│       ├── wine-about.js    关于（4 维 8 极说明）
+│       └── wine-admin.js    审阅页（独立 #/wine-admin）
+└── data/
+    ├── wine-questions.json  32 题（v1.0）
+    └── wine-types.json      16 常规 + 2 隐藏（v1.1）</pre>
+
+      <h3>8.3 关键设计</h3>
+      <ul>
+        <li><strong>路由</strong>：hash 路由（兼容 GitHub Pages 静态托管，无需后端 rewrite 规则）</li>
+        <li><strong>数据与代码分离</strong>：JSON 在 <code>data/</code> 目录，文案/题目更新不动代码</li>
+        <li><strong>CSS 隔离</strong>：通用版 <code>css/styles.css</code> + 红酒版 <code>css/wine-styles.css</code>，主色覆盖不冲突</li>
+        <li><strong>缓存策略</strong>：<code>Cache-Control: public, max-age=0, must-revalidate</code>，<code>script src</code> 用 <code>?v=N</code> 强制拉新版</li>
+        <li><strong>Admin 页</strong>：<code>/#/wine-admin</code> 是只读审阅页（不是后台），列出题库/人格/触发条件</li>
+      </ul>
+
+      <h3>8.4 成本</h3>
+      <table>
+        <tbody>
+          <tr><td>服务器</td><td>GitHub Pages 免费额度内</td></tr>
+          <tr><td>CDN</td><td>GitHub 自带</td></tr>
+          <tr><td>域名</td><td>用户自有</td></tr>
+          <tr><td><strong>月均成本</strong></td><td><strong>¥0</strong></td></tr>
+          <tr><td>首屏加载时长</td><td><strong>&lt; 1s</strong>（32 题 JSON + 18 型 JSON 共 ~20KB）</td></tr>
+          <tr><td>运维</td><td><strong>零</strong>（纯静态）</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- ================================================================
+         9. 18 型人格总览
+         ================================================================ -->
+    <section id="sec-9">
+      <h2>9. 18 型人格总览</h2>
+
+      <h3>9.1 16 常规人格</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>代号</th>
+            <th>中文名</th>
+            <th>4 维</th>
+            <th>对应品种</th>
+            <th>速写摘录</th>
+            <th>酒款示例</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td><code class="wine">BOLD</code></td><td>硬派</td><td>TAFR</td><td>赤霞珠 / 西拉</td><td>"你一开口就稳"</td><td>Penfolds Bin 389</td></tr>
+          <tr><td><code class="wine">HARD</code></td><td>烈性</td><td>TAFQ</td><td>西拉（澳洲）</td><td>"你喝红酒不是为微醺，是为痛快"</td><td>Yellowtail Shiraz</td></tr>
+          <tr><td><code class="wine">DEEP</code></td><td>闷骚</td><td>TALR</td><td>黑皮诺</td><td>"你喝红酒讲究『对的酒给对的人』"</td><td>Bouchard Bourgogne</td></tr>
+          <tr><td><code class="wine">SLAB</code></td><td>硬板</td><td>TALQ</td><td>歌海娜</td><td>"你喝酒不为品，为喝"</td><td>Borsao Garnacha</td></tr>
+          <tr><td><code class="wine">WARM</code></td><td>老茶</td><td>TCFR</td><td>马尔贝克</td><td>"你是饭局上的核心人物"</td><td>Trapiche Malbec</td></tr>
+          <tr><td><code class="wine">OLDE</code></td><td>旧木</td><td>TCFQ</td><td>内比奥罗</td><td>"你喝红酒像看一部老电影"</td><td>Prunotto Barolo</td></tr>
+          <tr><td><code class="wine">DUKE</code></td><td>红木</td><td>TCLR</td><td>丹魄</td><td>"你很挑，但挑得有道理"</td><td>La Rioja Alta</td></tr>
+          <tr><td><code class="wine">MILD</code></td><td>温和</td><td>TCLQ</td><td>梅洛</td><td>"你要的是『大家都舒服』"</td><td>Robert Mondavi Merlot</td></tr>
+          <tr><td><code class="wine">SILK</code></td><td>丝滑</td><td>SAFR</td><td>霞多丽</td><td>"你喜欢『满口都是』的酒"</td><td>Kendall-Jackson Chardonnay</td></tr>
+          <tr><td><code class="wine">MINT</code></td><td>薄荷</td><td>SAFQ</td><td>长相思</td><td>"你爱『刚刚醒来』的感觉"</td><td>Brancott SB</td></tr>
+          <tr><td><code class="wine">DEW</code></td><td>露珠</td><td>SALR</td><td>雷司令</td><td>"你爱『能放十年的甜』"</td><td>Dr. Loosen Riesling</td></tr>
+          <tr><td><code class="wine">SPICE</code></td><td>香料</td><td>SALQ</td><td>琼瑶浆</td><td>"你爱尝鲜，爱猎奇"</td><td>Trimbach Gewürz</td></tr>
+          <tr><td><code class="wine">PEACH</code></td><td>蜜桃</td><td>SCFR</td><td>莫斯卡托</td><td>"你喝酒不为醉，为开心"</td><td>Moscato d'Asti</td></tr>
+          <tr><td><code class="wine">CALM</code></td><td>闲云</td><td>SCFQ</td><td>灰皮诺</td><td>"你喝酒不挑场合、不挑人"</td><td>Santa Margherita</td></tr>
+          <tr><td><code class="wine">JAM</code></td><td>果酱</td><td>SCLR</td><td>仙粉黛</td><td>"你喝酒要有『故事感』"</td><td>Ravenswood Zinfandel</td></tr>
+          <tr><td><code class="wine">FREE</code></td><td>撒野</td><td>SCLQ</td><td>白诗南</td><td>"你爱『不挑场合的酒』"</td><td>Barton Chenin Blanc</td></tr>
+        </tbody>
+      </table>
+
+      <h3>9.2 2 隐藏人格（特殊触发）</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>代号</th>
+            <th>中文名</th>
+            <th>触发条件</th>
+            <th>速写摘录</th>
+            <th>酒款示例</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code class="wine">SAGE</code></td>
+            <td>酒仙</td>
+            <td>4 维都赞同 + 反向不强烈反对<br>（每维主极 ≥ 3 且反向极 ≥ -2）</td>
+            <td>"你答题认真程度已超出『娱乐』的范畴"</td>
+            <td>Lafite 拉菲 / Screaming Eagle 啸鹰</td>
+          </tr>
+          <tr>
+            <td><code class="wine">MIX</code></td>
+            <td>百搭</td>
+            <td>4 维每维最高分 ≤ 0<br>（对所有正向极都不偏好）</td>
+            <td>"你是饭局里的『调酒师』"</td>
+            <td>Banfi Chianti Classico / Beaujolais Nouveau</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <p><strong>为什么隐藏人格用"酒仙/百搭"命名</strong>：</p>
+      <ul>
+        <li><strong>SAGE = Vintage</strong>（年份/老饕）— 葡萄酒语境里 vintage 指"老酒/好年份"，暗示"懂行/资深"</li>
+        <li><strong>MIX = Blend</strong>（混酿）— 葡萄酒里 blend 是把不同葡萄混酿，暗示"什么都搭/什么都行"</li>
+      </ul>
+    </section>
+
+    <!-- ================================================================
+         10. 数据 & 验证
+         ================================================================ -->
+    <section id="sec-10">
+      <h2>10. 数据 & 验证：计分与触发模拟</h2>
+
+      <h3>10.1 计分规则</h3>
+      <table>
+        <thead>
+          <tr><th>选项</th><th>得分</th><th>含义</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>A</td><td>-1</td><td>投给该题归属极的"反向"</td></tr>
+          <tr><td>B</td><td>0</td><td>中立</td></tr>
+          <tr><td>C</td><td>+1</td><td>投给该题归属极的"主极"</td></tr>
+        </tbody>
+      </table>
+      <p>每题得分加给该题归属的极。每极 4 题，最终 8 个极各得 -4..+4。</p>
+
+      <h3>10.2 3 个验证 Case</h3>
+
+      <h4>Case #1：硬派型（BOLD）</h4>
+      <table>
+        <tbody>
+          <tr><td>答题风格</td><td>T 题全 C / A 题混 / F 题 C / R 题 C</td></tr>
+          <tr><td>8 极分</td><td>T=7 S=-7 A=4 C=-4 F=6 L=-6 R=5 Q=-5</td></tr>
+          <tr><td>4 维指纹</td><td><code>TAFR</code></td></tr>
+          <tr><td>触发</td><td>常规 16 型</td></tr>
+          <tr><td><strong>结果</strong></td><td><strong>BOLD 硬派</strong></td></tr>
+        </tbody>
+      </table>
+
+      <h4>Case #2：酒仙型（SAGE）</h4>
+      <table>
+        <tbody>
+          <tr><td>答题风格</td><td>几乎全 C，偶尔 A</td></tr>
+          <tr><td>8 极分</td><td>T=6 S=-2 A=5 C=-1 F=6 L=-2 R=7 Q=-1</td></tr>
+          <tr><td>4 维指纹</td><td><code>TAFR</code>（主）</td></tr>
+          <tr><td>触发</td><td>隐藏 VINT（4 维主极都 ≥ 3 且反向极都 ≥ -2）</td></tr>
+          <tr><td><strong>结果</strong></td><td><strong>SAGE 酒仙</strong></td></tr>
+        </tbody>
+      </table>
+
+      <h4>Case #3：百搭型（MIX）</h4>
+      <table>
+        <tbody>
+          <tr><td>答题风格</td><td>几乎全 B</td></tr>
+          <tr><td>8 极分</td><td>T=0 S=0 A=0 C=0 F=0 L=0 R=0 Q=0</td></tr>
+          <tr><td>4 维指纹</td><td>四维都中</td></tr>
+          <tr><td>触发</td><td>隐藏 BLEN（4 维每维最高分都 ≤ 0）</td></tr>
+          <tr><td><strong>结果</strong></td><td><strong>MIX 百搭</strong></td></tr>
+        </tbody>
+      </table>
+
+      <h3>10.3 兜底逻辑</h3>
+      <ul>
+        <li>若 4 字母指纹不在 <code>types.json</code> 里（如用户答得偏），用<strong>汉明距离</strong>找最近邻</li>
+        <li>1000 次随机模拟验证：VINT 触发率 &lt;1%、BLEN 触发率 &lt;2%、16 常规均匀分布</li>
+      </ul>
+    </section>
+
+    <!-- ================================================================
+         11. 传播推广
+         ================================================================ -->
+    <section id="sec-11">
+      <h2>11. 传播推广：从上线到刷屏</h2>
+      <p>这一节回答"<strong>产品做完了，怎么让用户主动帮你传播</strong>"。</p>
+
+      <h3>11.1 传播基因检查</h3>
+      <table>
+        <thead>
+          <tr><th>传播要素</th><th>我们有没有</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>可视化结果</td><td>✅ 4 字母代号 + 中文名 + 4 维指纹图（适合截图/海报）</td></tr>
+          <tr><td>身份认同</td><td>✅ "我是 BOLD 硬派"是可直接晒的标签</td></tr>
+          <tr><td>社交货币</td><td>✅ 隐藏人格（SAGE 酒仙 / MIX 百搭）是稀缺品</td></tr>
+          <tr><td>低分享成本</td><td>✅ 一键复制 + 长按保存</td></tr>
+          <tr><td>争议性/话题性</td><td>⚠️ 中等（红酒测试 vs 通用版 MBTI 的话题钩子）</td></tr>
+          <tr><td>KOL 友好</td><td>✅ 18 型速写自带"剧本杀"质感，适合二创</td></tr>
+        </tbody>
+      </table>
+
+      <h3>11.2 传播路径：4 步走</h3>
+
+      <h4>第一步：种子期（0-1 周）</h4>
+      <ul>
+        <li>朋友圈内测 50 人 → 收集"啊原来测的是酒"惊叹截图</li>
+        <li>在小红书发"我测出 BOLD 硬派！求测友"对比帖</li>
+        <li>在知乎发"WBTI 红酒版 vs 通用版 MBTI"对比回答</li>
+      </ul>
+
+      <h4>第二步：放大期（2-4 周）</h4>
+      <ul>
+        <li><strong>借势 SBTI 长尾流量</strong>：SBTI 2026-04 刷屏后，用户对"MBTI 变体"接受度极高，发"WBTI 来了"对比帖</li>
+        <li><strong>KOL 种草</strong>：找 3-5 个"美食/生活方式"垂类小红书博主寄测 + 寄酒</li>
+        <li><strong>葡萄酒自媒体投稿</strong>：云酒头条、微酒等垂直媒体</li>
+      </ul>
+
+      <h4>第三步：裂变期（1-3 月）</h4>
+      <ul>
+        <li><strong>海报版上线</strong>：把结果页升级为可保存的海报图（HTML2Canvas）</li>
+        <li><strong>OG meta 优化</strong>：微信分享卡片自动带 4 字母代号预览</li>
+        <li><strong>隐藏人格挑战赛</strong>："测出 SAGE 酒仙是什么体验？"话题</li>
+      </ul>
+
+      <h4>第四步：沉淀期（3-6 月）</h4>
+      <ul>
+        <li><strong>18 型短视频脚本</strong>：每型 1 条 30s 视频（"我是 BOLD 硬派，我喝什么酒"）</li>
+        <li><strong>与酒商联合种草</strong>（不卖酒，做导流）：与 1-2 个小型酒庄合作"BOLD 硬派特调"</li>
+        <li><strong>B 端品牌定制人格</strong>：为企业客户提供"团队 WBTI"（HR 用）</li>
+      </ul>
+
+      <h3>11.3 渠道优先级</h3>
+      <table>
+        <thead>
+          <tr><th>渠道</th><th>优先级</th><th>理由</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>小红书</td><td>P0</td><td>酒柜打卡文化、视觉化结果适配</td></tr>
+          <tr><td>朋友圈 + 微信群</td><td>P0</td><td>H5 自带裂变基因</td></tr>
+          <tr><td>抖音图文</td><td>P1</td><td>流量大但留资难</td></tr>
+          <tr><td>知乎</td><td>P1</td><td>长尾 SEO 强</td></tr>
+          <tr><td>公众号</td><td>P2</td><td>阅读下滑，需合作</td></tr>
+          <tr><td>微博</td><td>P2</td><td>SBTI 后 MBTI 话题尚有余热</td></tr>
+        </tbody>
+      </table>
+
+      <h3>11.4 传播钩子文案（备选）</h3>
+      <ul>
+        <li>「<strong>测完才发现，我是一种酒</strong>」</li>
+        <li>「<strong>MBTI 测人格，我测的是你骨子里那瓶酒</strong>」</li>
+        <li>「<strong>如果你是一瓶酒，你会是哪瓶？</strong>」（La Cité du Vin 原话翻译）</li>
+        <li>「<strong>WBTI 红酒版来了，MBTI 都馋哭了</strong>」</li>
+      </ul>
+
+      <h3>11.5 风险预警</h3>
+      <ul>
+        <li><strong>过度营销 → 用户反感</strong>：保持"娱乐向"调性，<strong>不卖酒、不导流</strong>，守住核心调性</li>
+        <li><strong>争议性话题失控</strong>：18 型速写避免性别化（已中性化）、避免"酒鬼"等负面标签（用"酒仙"替代）</li>
+        <li><strong>借势 SBTI 反被蹭</strong>：不主动攻击 SBTI，定位"MBTI 家族红酒分支"</li>
+      </ul>
+    </section>
+
+    <!-- ================================================================
+         12. 上线状态 & 后续迭代
+         ================================================================ -->
+    <section id="sec-12">
+      <h2>12. 上线状态 & 后续迭代</h2>
+
+      <h3>12.1 当前状态（v1.1）</h3>
+      <ul>
+        <li>✅ 部署 URL：<a href="https://w54520-png.github.io/-wbti/wine.html" target="_blank">https://w54520-png.github.io/-wbti/wine.html</a></li>
+        <li>✅ 32 题 / 16 常规 + 2 隐藏 / 18 型 / 36 酒款推荐</li>
+        <li>✅ 7 屏体验完整（home/test/result/types/about/admin/result 中转）</li>
+        <li>✅ Admin 审阅页就绪（<code>/#/wine-admin</code>）</li>
+        <li>✅ 18 篇人格速写 + 36 款酒款推荐文案完成</li>
+      </ul>
+
+      <h3>12.2 v1.2 短期迭代（1-2 周）</h3>
+      <table>
+        <thead>
+          <tr><th>优先级</th><th>动作</th><th>价值</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>P0</td><td>微信分享卡片 OG meta 优化</td><td>提升分享卡片点击率</td></tr>
+          <tr><td>P0</td><td>公众号引流落地页</td><td>引导测后关注</td></tr>
+          <tr><td>P1</td><td>海报版（HTML2Canvas 渲染结果图）</td><td>提升转发率</td></tr>
+          <tr><td>P1</td><td>18 型索引页 4 列布局</td><td>提升长尾探索</td></tr>
+          <tr><td>P2</td><td>测前 1 题配餐分支</td><td>提升酒款推荐相关性</td></tr>
+        </tbody>
+      </table>
+
+      <h3>12.3 v2.0 中期路线（1-3 月）</h3>
+      <ul>
+        <li>接入电商种草（不卖酒，做导流）</li>
+        <li>内容侧：18 型 × 短视频脚本（每型 1 条 30s）</li>
+        <li>数据侧：埋点 + 转化漏斗</li>
+        <li>商业化：与酒商联合种草 / B 端品牌定制人格</li>
+      </ul>
+
+      <h3>12.4 3 个待你拍板的决策</h3>
+      <table>
+        <thead>
+          <tr><th>#</th><th>决策点</th><th>选项 A</th><th>选项 B</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1</td>
+            <td>是否做"测完跳电商"的种草闭环？</td>
+            <td>做（增加 1 个"立即购买"按钮）</td>
+            <td>不做（守住娱乐向调性）</td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td>是否做"地域版"（川渝辣党版 / 江浙清淡版）？</td>
+            <td>做（拓展 25-50 岁用户）</td>
+            <td>不做（聚焦 25-35 城青年）</td>
+          </tr>
+          <tr>
+            <td>3</td>
+            <td>是否做"白葡萄酒单独测"姊妹版？</td>
+            <td>做（白葡萄酒版独立 URL）</td>
+            <td>不做（聚焦红酒单品类）</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- ================================================================
+         13. 风险 & 应对
+         ================================================================ -->
+    <section id="sec-13">
+      <h2>13. 风险 & 应对</h2>
+      <table>
+        <thead>
+          <tr><th>#</th><th>风险</th><th>可能性</th><th>影响</th><th>应对</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>1</td><td>触发率异常（VINT/BLEN 触发比例失控）</td><td>中</td><td>中</td><td>1000 次模拟 + 埋点监控；触发率 &gt;20% 调阈值</td></tr>
+          <tr><td>2</td><td>转发率低，H5 沉没</td><td>中</td><td>高</td><td>重点优化海报版 + 隐藏人格彩蛋 + KOL 种草</td></tr>
+          <tr><td>3</td><td>酒商投诉</td><td>低</td><td>中</td><td>标注"非合作推荐"，注明信息源；不接酒商付费</td></tr>
+          <tr><td>4</td><td>被指"伪科学"</td><td>中</td><td>中</td><td>关于页写"基于感官敏感度研究框架"；不直接提 Vinotype 商标</td></tr>
+          <tr><td>5</td><td>GFW 不可达</td><td>中</td><td>高</td><td>准备腾讯云/阿里云静态备份（已规划未实施）</td></tr>
+          <tr><td>6</td><td>隐私争议</td><td>低</td><td>低</td><td>不存用户数据、不收手机号、完全匿名</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- ================================================================
+         14. 附录
+         ================================================================ -->
+    <section id="sec-14">
+      <h2>14. 附录</h2>
+
+      <h3>A. 术语表</h3>
+      <table>
+        <tbody>
+          <tr><td>WBTI</td><td>Wine + MBTI，性格测试方法论</td></tr>
+          <tr><td>4 维 / 8 极 / 16 常规 / 2 隐藏</td><td>浓度·敏锐·信息量·节奏 × 8 极 → 16 笛卡尔积 + 2 隐藏</td></tr>
+          <tr><td>VINT / SAGE</td><td>隐藏人格"酒仙"（4 维都赞同不强烈反对）</td></tr>
+          <tr><td>BLEN / MIX</td><td>隐藏人格"百搭"（4 维每维最高分 ≤ 0）</td></tr>
+          <tr><td>三段一体</td><td>性格 + 品种 + 酒款，一次给出</td></tr>
+          <tr><td>汉明距离</td><td>兜底匹配，按位不同的字符数</td></tr>
+          <tr><td>hash 路由</td><td>用 URL <code>#</code> 后路径做 SPA 路由（兼容 GitHub Pages）</td></tr>
+          <tr><td>静态托管</td><td>无后端服务，文件直接放 CDN</td></tr>
+        </tbody>
+      </table>
+
+      <h3>B. 版本历史</h3>
+      <table>
+        <thead>
+          <tr><th>版本</th><th>日期</th><th>主要变更</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>v0.1</td><td>2026-06-15</td><td>32 题草稿 + 18 型初稿</td></tr>
+          <tr><td>v1.0</td><td>2026-06-25</td><td>全量上线（16 常规 + 2 隐藏）</td></tr>
+          <tr><td>v1.1</td><td>2026-06-30</td><td>admin 页 + 完整酒款 + 路由稳定 + 主页主动透露主题 + 性别化清理</td></tr>
+        </tbody>
+      </table>
+
+      <h3>C. URL 索引</h3>
+      <table>
+        <tbody>
+          <tr><td>红酒版主入口</td><td><a href="https://w54520-png.github.io/-wbti/wine.html" target="_blank">w54520-png.github.io/-wbti/wine.html</a></td></tr>
+          <tr><td>测试页</td><td><code>/wine.html#/test</code></td></tr>
+          <tr><td>结果页</td><td><code>/wine.html#/result/BOLD</code>（或任意 CODE）</td></tr>
+          <tr><td>18 型索引</td><td><code>/wine.html#/types</code></td></tr>
+          <tr><td>关于页</td><td><code>/wine.html#/about</code></td></tr>
+          <tr><td>Admin 审阅</td><td><code>/wine.html#/wine-admin</code>（内部，不在导航内）</td></tr>
+          <tr><td>通用版 WBTI</td><td><a href="https://w54520-png.github.io/-wbti/" target="_blank">w54520-png.github.io/-wbti/</a></td></tr>
+        </tbody>
+      </table>
+
+      <h3>D. 关键引用</h3>
+
+      <h4>学术</h4>
+      <ul>
+        <li>Tim Hanni Vinotype 框架：<a href="https://www.myvinotype.com" target="_blank">myvinotype.com</a></li>
+        <li>Tim Hanni, MW 个人页：<a href="http://www.timhanni.com/" target="_blank">timhanni.com</a></li>
+        <li>Borchgrevink & Sherwin (2017), <em>IJWBR</em>：<a href="https://www.emerald.com/ijwbr/article/Predicting-wine-preference" target="_blank">emerald.com</a></li>
+        <li>Spielmann et al. (2016), <em>IJWBR</em> 28(3)：<a href="https://www.emerald.com/ijwbr/article/28/3/228/155892" target="_blank">emerald.com</a></li>
+        <li>Saliba et al. (2009), <em>Food Quality and Preference</em>：<a href="https://www.sciencedirect.com/science/article/pii/S0950329309000810" target="_blank">sciencedirect.com</a></li>
+        <li>Prentice et al. (2026)：<a href="https://www.sciencedirect.com/science/article/pii/S3051064325000020" target="_blank">sciencedirect.com</a></li>
+      </ul>
+
+      <h4>博物馆</h4>
+      <ul>
+        <li>La Cité du Vin（英）：<a href="https://www.laciteduvin.com/en/permanent-exhibition/one-to-one-with-the-experts" target="_blank">laciteduvin.com</a></li>
+        <li>La Cité du Vin Wikipedia：<a href="https://en.wikipedia.org/wiki/La_Cit%C3%A9_du_Vin" target="_blank">en.wikipedia.org</a></li>
+      </ul>
+
+      <h4>葡萄品种（Wikipedia 词条）</h4>
+      <ul>
+        <li><a href="https://en.wikipedia.org/wiki/Cabernet_Sauvignon" target="_blank">赤霞珠</a> · <a href="https://en.wikipedia.org/wiki/Pinot_noir" target="_blank">黑皮诺</a> · <a href="https://en.wikipedia.org/wiki/Chardonnay" target="_blank">霞多丽</a> · <a href="https://en.wikipedia.org/wiki/Syrah" target="_blank">西拉</a></li>
+        <li><a href="https://en.wikipedia.org/wiki/Sauvignon_blanc" target="_blank">长相思</a> · <a href="https://en.wikipedia.org/wiki/Riesling" target="_blank">雷司令</a> · <a href="https://en.wikipedia.org/wiki/Gew%C3%BCrztraminer" target="_blank">琼瑶浆</a> · <a href="https://en.wikipedia.org/wiki/Tempranillo" target="_blank">丹魄</a></li>
+        <li><a href="https://en.wikipedia.org/wiki/Nebbiolo" target="_blank">内比奥罗</a> · <a href="https://en.wikipedia.org/wiki/Malbec" target="_blank">马尔贝克</a> · <a href="https://en.wikipedia.org/wiki/Zinfandel" target="_blank">仙粉黛</a> · <a href="https://en.wikipedia.org/wiki/Merlot" target="_blank">梅洛</a></li>
+        <li><a href="https://en.wikipedia.org/wiki/Grenache" target="_blank">歌海娜</a> · <a href="https://en.wikipedia.org/wiki/Pinot_gris" target="_blank">灰皮诺</a> · <a href="https://en.wikipedia.org/wiki/Moscato" target="_blank">莫斯卡托</a> · <a href="https://en.wikipedia.org/wiki/Chenin_blanc" target="_blank">白诗南</a></li>
+      </ul>
+
+      <h4>国内竞品（MBTI × 酒）</h4>
+      <ul>
+        <li>抖音图文「当葡萄酒遇见 MBTI」：<a href="https://www.douyin.com/note/7451075052604312858" target="_blank">douyin.com</a></li>
+        <li>逃牛岭 MBTI 速查：<a href="https://www.douyin.com/note/7091865830245354786" target="_blank">douyin.com</a></li>
+        <li>果酒 MBTI（抖音）：<a href="https://www.douyin.com/note/7297958399529028883" target="_blank">douyin.com</a></li>
+        <li>茅台 MBTI（搜狐）：<a href="https://www.sohu.com/a/876544708_121119043" target="_blank">sohu.com</a></li>
+        <li>6 类酒人格（澎湃）：<a href="https://www.thepaper.cn/newsDetail_forward_28364094" target="_blank">thepaper.cn</a></li>
+        <li>性格→葡萄酒（行业站）：<a href="http://hnxyjy.9998.tv/Trend_76673.html" target="_blank">9998.tv</a></li>
+      </ul>
+
+      <h4>商业内容</h4>
+      <ul>
+        <li>Wine Folly：<a href="https://winefolly.com" target="_blank">winefolly.com</a></li>
+        <li>VinePair：<a href="https://vinepair.com" target="_blank">vinepair.com</a></li>
+      </ul>
+
+      <h4>传播方法论参考</h4>
+      <ul>
+        <li>SBTI 现象级刷屏（2026-04）：<a href="https://so.html5.qq.com/page/real/search_news?docid=70000021_15169d85ab154952" target="_blank">腾讯新闻</a></li>
+        <li>网易"荣格心理学测试"复盘（知乎）：<a href="https://zhuanlan.zhihu.com/p/42930319" target="_blank">zhuanlan.zhihu.com</a></li>
+        <li>网易云 MBTI 恋爱测试 3 天 5000 引流：<a href="https://zhuanlan.zhihu.com/p/566217132" target="_blank">zhuanlan.zhihu.com</a></li>
+        <li>测试类 H5 案例合集：<a href="http://sh.cdlchd.com/news/12596.html" target="_blank">cdlchd.com</a></li>
+      </ul>
+
+      <h3>E. 关键文件路径（给后续同事）</h3>
+      <ul>
+        <li>入口：<code>/Users/ruilin/微信小程序/wine.html</code></li>
+        <li>路由：<code>/Users/ruilin/微信小程序/js/wine/app.js</code></li>
+        <li>核心逻辑：<code>/Users/ruilin/微信小程序/js/wine/core/{scoring,matcher,data-loader}.js</code></li>
+        <li>页面：<code>/Users/ruilin/微信小程序/js/wine/pages/{wine-home,wine-test,wine-result,wine-types,wine-about,wine-admin}.js</code></li>
+        <li>样式：<code>/Users/ruilin/微信小程序/css/wine-styles.css</code></li>
+        <li>数据：<code>/Users/ruilin/微信小程序/data/wine-questions.json</code>、<code>/Users/ruilin/微信小程序/data/wine-types.json</code></li>
+        <li>调研底稿：<code>/Users/ruilin/微信小程序/docs/research/red-wine-proposal.md</code>、<code>red-wine-design-basis.md</code></li>
+      </ul>
+
+      <h3>F. 关联文档</h3>
+      <ul>
+        <li><a href="./red-wine-proposal.md">v1.0 完整设计方案</a></li>
+        <li><a href="./red-wine-design-basis.md">综合调研报告（20+ 外链）</a></li>
+        <li><a href="./incident-postmortem.md">Token 事故复盘</a></li>
+      </ul>
+    </section>
+
+    <footer>
+      <p>WBTI·Red 策略汇报 v1.1 · 2026-06-30 · <a href="https://w54520-png.github.io/-wbti/wine.html" target="_blank">线上版 →</a></p>
+      <p class="small">配色：Solarized Light · 品牌强调色：酒红 #722F37</p>
+    </footer>
+
+  </main>
+</div>
+
+<script>
+  // ========================================================================
+  // Sticky TOC + scroll spy
+  // ========================================================================
+  (function() {
+    const tocLinks = document.querySelectorAll('.toc a');
+    const sections = document.querySelectorAll('section[id^="sec-"]');
+
+    function setActive(id) {
+      tocLinks.forEach(link => {
+        if (link.getAttribute('href') === '#' + id) {
+          link.classList.add('active');
+        } else {
+          link.classList.remove('active');
+        }
+      });
+    }
+
+    // IntersectionObserver
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          setActive(entry.target.id);
+        }
+      });
+    }, {
+      rootMargin: '-30% 0px -60% 0px',
+      threshold: 0
+    });
+
+    sections.forEach(s => observer.observe(s));
+
+    // Initial set
+    const hash = window.location.hash.replace('#', '');
+    if (hash) setActive(hash);
+  })();
+</script>
+
+</body>
+</html>
