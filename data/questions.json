@@ -1,235 +1,234 @@
 {
-  "_schema_note": "32 道主测试题 + 1 道饮酒分支题。每题有 id/order/dimension/pole/text",
   "main": [
     {
       "id": "q27",
-      "order": 1,
       "dimension": "rhythm",
       "pole": "C",
-      "text": "装修我喜欢复古/中世纪/工业风，胜过极简/未来感。"
+      "text": "我信奉「慢工出细活」。",
+      "order": 1
     },
     {
       "id": "q6",
-      "order": 2,
       "dimension": "strength",
       "pole": "H",
-      "text": "旅行时我最爱钻进当地小馆子，连锁餐厅让我扫兴。"
+      "text": "说话时我的情绪起伏大、表情夸张。",
+      "order": 2
     },
     {
       "id": "q11",
-      "order": 3,
       "dimension": "scene",
       "pole": "S",
-      "text": "我有几个十年老友，比一堆饭局新朋友更让我踏实。"
+      "text": "团建唱 K 我一般只坐着听。",
+      "order": 3
     },
     {
       "id": "q16",
-      "order": 4,
       "dimension": "scene",
       "pole": "S",
-      "text": "连续两天的聚会，会让我觉得被掏空。"
+      "text": "开会我一般不主动发言。",
+      "order": 4
     },
     {
       "id": "q26",
-      "order": 5,
       "dimension": "rhythm",
       "pole": "C",
-      "text": "我买东西更看重品牌历史，而不是新潮小众。"
+      "text": "我有收藏老物件的习惯（邮票、黑胶、旧书）。",
+      "order": 5
     },
     {
       "id": "q12",
-      "order": 6,
       "dimension": "scene",
       "pole": "S",
-      "text": "比起热闹的酒吧，我更喜欢深夜一个人去居酒屋。"
+      "text": "一群人吃饭时，我常常是最安静的那个。",
+      "order": 6
     },
     {
       "id": "q23",
-      "order": 7,
       "dimension": "flavor",
       "pole": "F",
-      "text": "我觉得香水太浓不好闻，清淡的水生调更适合我。"
+      "text": "我爱听纯音乐胜过带歌词的。",
+      "order": 7
     },
     {
       "id": "q7",
-      "order": 8,
       "dimension": "strength",
       "pole": "H",
-      "text": "我喜欢让一首歌一直单曲循环，直到听吐。"
+      "text": "玩游戏我一定要打到最高难度。",
+      "order": 8
     },
     {
       "id": "q20",
-      "order": 9,
       "dimension": "flavor",
       "pole": "F",
-      "text": "我偏爱甜口的菜（江浙菜、东南亚菜、甜辣酱）。"
+      "text": "春天比秋天让我更开心。",
+      "order": 9
     },
     {
       "id": "q13",
-      "order": 10,
       "dimension": "scene",
       "pole": "S",
-      "text": "出门吃饭我总爱坐包间或角落。"
+      "text": "生日我宁愿不过，也不想被一群人围着。",
+      "order": 10
     },
     {
       "id": "q17",
-      "order": 11,
       "dimension": "flavor",
       "pole": "F",
-      "text": "比起纯黑咖啡，我更爱加了奶的拿铁。"
+      "text": "我喜欢雨后泥土的气息。",
+      "order": 11
     },
     {
       "id": "q10",
-      "order": 12,
       "dimension": "scene",
       "pole": "S",
-      "text": "我说话前会先想一下，很少插嘴。"
+      "text": "微信消息我经常拖几个小时才回。",
+      "order": 12
     },
     {
       "id": "q29",
-      "order": 13,
       "dimension": "rhythm",
       "pole": "C",
-      "text": "我更爱陈年/老味道，而不是新工艺的清爽。"
+      "text": "我喜欢手写日记或手账。",
+      "order": 13
     },
     {
       "id": "q15",
-      "order": 14,
       "dimension": "scene",
       "pole": "S",
-      "text": "我很少在朋友圈发自拍。"
+      "text": "逛超市一个人我最自在。",
+      "order": 14
     },
     {
       "id": "q25",
-      "order": 15,
       "dimension": "rhythm",
       "pole": "C",
-      "text": "比起新派歌手，我更喜欢老歌。"
+      "text": "每年春节我都回老家。",
+      "order": 15
     },
     {
       "id": "q21",
-      "order": 16,
       "dimension": "flavor",
       "pole": "F",
-      "text": "我闻不习惯\"老派香水的浓郁麝香味\"。"
+      "text": "我更想住在靠海或靠湖的地方。",
+      "order": 16
     },
     {
       "id": "q31",
-      "order": 17,
       "dimension": "rhythm",
       "pole": "C",
-      "text": "我比较信\"老字号\"，觉得经得起时间的东西更可靠。"
+      "text": "我爱去老店，老字号让我更安心。",
+      "order": 17
     },
     {
       "id": "q2",
-      "order": 18,
       "dimension": "strength",
       "pole": "H",
-      "text": "跳伞、蹦极、过山车这类高刺激项目，我愿意尝试。"
+      "text": "健身时我追求大重量、力竭感。",
+      "order": 18
     },
     {
       "id": "q14",
-      "order": 19,
       "dimension": "scene",
       "pole": "S",
-      "text": "深夜 12 点，我宁愿一个人安静做事。"
+      "text": "朋友约饭局我常常找借口推。",
+      "order": 19
     },
     {
       "id": "q19",
-      "order": 20,
       "dimension": "flavor",
       "pole": "F",
-      "text": "比起 90% 的黑巧，我更爱 60% 以下的牛奶巧克力。"
+      "text": "我家布置偏白色 + 浅木色。",
+      "order": 20
     },
     {
       "id": "q3",
-      "order": 21,
       "dimension": "strength",
       "pole": "H",
-      "text": "比起清粥小菜，我更爱浓郁厚重的食物（红烧肉、奶酪火锅）。"
+      "text": "加班到凌晨我反而更兴奋。",
+      "order": 21
     },
     {
       "id": "q18",
-      "order": 22,
       "dimension": "flavor",
       "pole": "F",
-      "text": "我喜欢花香味的东西（桂花茶、玫瑰饼、茉莉香水）。"
+      "text": "早晨比晚上更让我清醒、有创造力。",
+      "order": 22
     },
     {
       "id": "q22",
-      "order": 23,
       "dimension": "flavor",
       "pole": "F",
-      "text": "比起陈年普洱的苦，我更爱水果茶的清香。"
+      "text": "我养植物比养宠物更在行。",
+      "order": 23
     },
     {
       "id": "q4",
-      "order": 24,
       "dimension": "strength",
       "pole": "H",
-      "text": "我愿意为了一场演唱会飞到另一个城市。"
+      "text": "看电影我偏爱反转密集、悬疑烧脑片。",
+      "order": 24
     },
     {
       "id": "q30",
-      "order": 25,
       "dimension": "rhythm",
       "pole": "C",
-      "text": "比起当代艺术，我更爱传统油画/水墨画。"
+      "text": "做饭我从切菜开始，不爱用半成品。",
+      "order": 25
     },
     {
       "id": "q5",
-      "order": 26,
       "dimension": "strength",
       "pole": "H",
-      "text": "我喜欢一口气把事情做到极致，不喜欢慢慢摸索。"
+      "text": "旅行我更喜欢一次性打卡多个景点。",
+      "order": 26
     },
     {
       "id": "q28",
-      "order": 27,
       "dimension": "rhythm",
       "pole": "C",
-      "text": "我看电影更爱老片/经典系列，而不是新上映的片子。"
+      "text": "我定期给老朋友写信或发问候。",
+      "order": 27
     },
     {
       "id": "q32",
-      "order": 28,
       "dimension": "rhythm",
       "pole": "C",
-      "text": "比起小众独立游戏，我更爱经典 IP 系列。"
+      "text": "读一本书我会反复看很多遍。",
+      "order": 28
     },
     {
       "id": "q9",
-      "order": 29,
       "dimension": "scene",
       "pole": "S",
-      "text": "周末夜晚，我更愿意一个人在家待着。"
+      "text": "周末我宁愿在家发呆，也不想出门。",
+      "order": 29
     },
     {
       "id": "q24",
-      "order": 30,
       "dimension": "flavor",
       "pole": "F",
-      "text": "比起浓缩咖啡的苦，我更爱奶盖的绵柔。"
+      "text": "我更喜欢薄荷、柠檬这类清爽气味。",
+      "order": 30
     },
     {
       "id": "q1",
-      "order": 31,
       "dimension": "strength",
       "pole": "H",
-      "text": "我愿意为了一道菜排 30 分钟队。"
+      "text": "我愿意为了一场展览排 30 分钟队。",
+      "order": 31
     },
     {
       "id": "q8",
-      "order": 32,
       "dimension": "strength",
       "pole": "H",
-      "text": "一份清淡的沙拉，很难让我感到满足。"
+      "text": "吵架时我嗓门比对方还大。",
+      "order": 32
     }
   ],
   "branch": {
     "id": "q33",
     "condition": "strength_H_score >= 2",
-    "text": "最近 3 个月，你有没有一次喝断片？",
+    "text": "🍷 最近 3 个月，你有没有一次喝断片？",
     "options": {
       "A": "有过，还不止一次",
       "B": "有过一次",
