@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <title>WBTI·Red 红酒人格测试</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#722F37',  // 酒红主色
+            accent: '#C9A96E',   // 旧金
+            bg: '#F8F4F0',       // 砖红米
+            text: '#2B2B2B',
+            hidden: '#4A1E1E'
+          }
+        }
+      }
+    };
+  </script>
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/wine-styles.css">
+</head>
+<body class="bg-bg text-text font-sans antialiased">
+
+  <!-- 顶部导航 -->
+  <nav class="border-b border-amber-100 bg-white/80 backdrop-blur sticky top-0 z-10">
+    <div class="max-w-2xl mx-auto px-4 py-3 flex items-center justify-between">
+      <a href="./wine.html" class="font-bold text-primary text-lg">🍷 WBTI·Red</a>
+      <div class="flex gap-4 text-sm text-gray-600">
+        <a href="./wine.html#/types" class="hover:text-primary">18 型</a>
+        <a href="./wine.html#/about" class="hover:text-primary">关于</a>
+        <a href="./" class="text-gray-400 hover:text-gray-700" title="切换到通用版 WBTI">↻ 通用版</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- 页面容器 -->
+  <main id="app" class="max-w-2xl mx-auto px-4 py-8 min-h-[calc(100vh-60px)]">
+    <!-- 路由会渲染到这里 -->
+    <div class="text-center text-gray-400 py-20">加载中...</div>
+  </main>
+
+  <!-- 底部友情提示 -->
+  <footer class="border-t border-amber-100 mt-12">
+    <div class="max-w-2xl mx-auto px-4 py-4 text-xs text-gray-400 text-center">
+      WBTI·Red 是娱乐向测试，结果仅供自娱自乐。<br>
+      未成年人请勿饮酒。理性饮酒。
+    </div>
+  </footer>
+
+  <!-- 红酒版入口 -->
+  <script type="module" src="js/wine/app.js?v=1"></script>
+</body>
+</html>

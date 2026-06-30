@@ -1,0 +1,19 @@
+/* css/wine-styles.css
+ * WBTI 红酒版样式覆盖（基于 styles.css）
+ * 主色：酒红 #722F37
+ */
+
+/* 主题色覆盖（继承通用版 CSS 变量，html 顶层已设） */
+
+/* 红酒版专属：结果页大代号 */
+.type-code {
+  font-size: 4rem;
+  font-weight: 900;
+  letter-spacing: -0.05em;
+  color: var(--color-primary); /* 继承父 CSS 变量，文末说明 */
+  line-height: 1;
+}
+
+/* 因 wine-styles.css 在 styles.css 之后加载，
+   主题色取自 wine.html 内的 tailwind config */
+/* 这里保留选择器以便后续主题微调 */
