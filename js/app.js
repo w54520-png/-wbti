@@ -6,6 +6,7 @@ import { renderTest } from './pages/test.js';
 import { renderResult } from './pages/result.js';
 import { renderTypes } from './pages/types.js';
 import { renderAbout } from './pages/about.js';
+import { renderAdmin } from './pages/admin.js';
 
 const routes = [
   { pattern: /^\/$/, handler: renderHome },
@@ -14,6 +15,7 @@ const routes = [
   { pattern: /^\/result\/([A-Z\-]+)$/, handler: renderResult },
   { pattern: /^\/types$/, handler: renderTypes },
   { pattern: /^\/about$/, handler: renderAbout },
+  { pattern: /^\/admin$/, handler: renderAdmin },
 ];
 
 async function handleRoute() {
