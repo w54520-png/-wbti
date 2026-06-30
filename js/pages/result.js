@@ -160,7 +160,7 @@ async function renderDimensionBars() {
  * 成功：按钮临时变 "✅ 已复制"；失败：弹 alert 提示，不静默吞错。
  */
 function handleShare(shareBtn, type) {
-  const shareText = `我测出 WBTI 是【${type.code} ${type.name}】——${type.tagline}\n你也来测一下：https://wbti.vercel.app/`;
+  const shareText = `我测出 WBTI 是【${type.code} ${type.name}】——${type.tagline}\n你也来测一下：https://w54520-png.github.io/-wbti/`;
   const original = shareBtn.textContent;
 
   // 不支持 Clipboard API（老浏览器 / 非 https）→ 立即降级
